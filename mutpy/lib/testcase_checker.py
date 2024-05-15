@@ -30,6 +30,8 @@ def gather_testcase(testcase):
             file_list.extend([file + '/' + f for f in os.listdir(path + '/' + file)])
         elif not file.endswith('.py'):
             dir_list.append(file)
+        elif file.endswith('__init__.py'):
+            dir_list.append(file)
 
     # sanitize first        
     for file in dir_list:
