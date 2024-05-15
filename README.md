@@ -1,1 +1,1 @@
-# WALLY-We-Can-LocaLize-Your-faulty-lines
+# WALLY: We Can LocaLize Your faulty lines
