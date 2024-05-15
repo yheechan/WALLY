@@ -16,7 +16,8 @@ def arg_parser():
 
 def gather_testcase(testcase):
     # TODO fix path
-    path = '../../chess/test'    
+    # path = '/root/bugsinpy/framework/bin/temp/spacy/spacy/tests'
+    path = '../../chess/test'     
     #with open(testcase, 'r') as f:
     file_list = os.listdir(path)
     dir_list = []
@@ -27,16 +28,18 @@ def gather_testcase(testcase):
         if os.path.isdir(path + '/' + file):
             dir_list.append(file)
             file_list.extend([file + '/' + f for f in os.listdir(path + '/' + file)])
+        if not file.endswith('.py'):
+            dir_list.append(file)
+
+    # sanitize first        
+    for file in dir_list:
+        file_list.remove(file)
 
     file_class_functions = {}
     for file in file_list:
-        if file not in dir_list:
-            file_class_functions[file] = {'type': '', 'test_case': []}
+        file_class_functions[file] = {'type': '', 'test_case': []}
     
     for file in file_list:
-        if file in dir_list:
-            # print(file + ' is a directory')
-            continue
         class_name = ''
         all_functions = []
         # print(file)
@@ -77,8 +80,7 @@ def gather_testcase(testcase):
                     # print()
         file_class_functions[file]['test_case'] = all_functions
 
-    for file in dir_list:
-        file_list.remove(file)
+    
     
     for file in file_list:
         print('file: ' + file)
