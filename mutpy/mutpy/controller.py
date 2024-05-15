@@ -1,6 +1,7 @@
 import random
 import sys
 import time
+from copy import deepcopy
 
 from mutpy import views, utils
 
@@ -94,8 +95,8 @@ class MutationController(views.ViewNotifier):
             result, duration = self.run_test(test_module, target_test)
             if result.was_successful():
                 test_modules.append((test_module, target_test, duration))
-            else:
-                raise TestsFailAtOriginal(result)
+            # else:
+            #     raise TestsFailAtOriginal(result)
             number_of_tests += result.tests_run()
             total_duration += duration
 
@@ -110,8 +111,33 @@ class MutationController(views.ViewNotifier):
         coverage_injector, coverage_result = self.inject_coverage(target_ast, target_module)
         if coverage_injector:
             self.score.update_coverage(*coverage_injector.get_result())
+        
+        # STOP HERE AND ACCUMULATE MUTANTS
+        # SHUFFLE THE MUTANTS
+        mutant_list = []
         for mutations, mutant_ast in self.mutant_generator.mutate(target_ast, to_mutate, coverage_injector,
                                                                   module=target_module):
+            mutant_list.append((mutations, deepcopy(mutant_ast)))
+        random.shuffle(mutant_list)
+
+        # line2mutants = {}
+        # run the mutants
+        for mutations, mutant_ast in mutant_list:
+            # mutant_lineno = mutations[0].node.lineno
+
+            # # THIS CODE LIMITS MUTATION TESTING ON MUTANTS POSITIONED AT LINES_BY_FAILING_TC
+            # if mutant_lineno not in []:
+            #     continue
+
+
+            # # THIS CODE LIMITS MUTATION TESTING ON A SINGLE LINE TO MAX_NUM_MUTANTS_PER_LINE
+            # if mutant_lineno not in line2mutants:
+            #     line2mutants[mutant_lineno] = 0
+            # line2mutants[mutant_lineno] += 1
+            # if line2mutants[mutant_lineno] > 5:
+            #     continue
+
+
             mutation_number = self.score.all_mutants + 1
             if self.mutation_number and self.mutation_number != mutation_number:
                 self.score.inc_incompetent()

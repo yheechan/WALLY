@@ -8,7 +8,7 @@ class UnittestMutationTestResult(unittest.TestResult):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.type_error = None
-        self.failfast = True
+        self.failfast = False
         self.mutation_test_result = MutationTestResult()
 
     def addSuccess(self, test):
