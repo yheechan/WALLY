@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 import sys
-sys.path.append('.')
 import argparse
 
-# from mutpy import commandline
 
 # --save-failinglines
 
@@ -14,4 +12,7 @@ import argparse
 # import json
 # json.dump(failing_lines, open('failing_lines.json', 'w'))
 
-# commandline.main(sys.argv[1:])
+# executes mutpy
+sys.path.append('mutpy/')
+from mutpy import commandline
+commandline.main(sys.argv[1:])
