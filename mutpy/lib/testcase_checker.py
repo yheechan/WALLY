@@ -28,11 +28,12 @@ def gather_testcase(testcase):
         if os.path.isdir(path + '/' + file):
             dir_list.append(file)
             file_list.extend([file + '/' + f for f in os.listdir(path + '/' + file)])
-        if not file.endswith('.py'):
+        elif not file.endswith('.py'):
             dir_list.append(file)
 
     # sanitize first        
     for file in dir_list:
+        print('dir: ' + file)
         file_list.remove(file)
 
     file_class_functions = {}
