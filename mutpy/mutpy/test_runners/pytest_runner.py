@@ -80,7 +80,7 @@ class PytestTestSuite(BaseTestSuite):
 
     def run(self):
         mutpy_plugin = PytestMutpyPlugin(skipped_tests=self.skipped_tests)
-        pytest.main(args=list(self.tests) + ['-x', '-p', 'no:terminal'], plugins=list(default_plugins) + [mutpy_plugin])
+        pytest.main(args=list(self.tests) + ['-p', 'no:terminal'], plugins=list(default_plugins) + [mutpy_plugin])
         return mutpy_plugin.mutation_test_result
 
     def run_with_coverage(self, coverage_injector=None):

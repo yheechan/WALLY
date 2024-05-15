@@ -56,6 +56,9 @@ SerializableMutationTestResult = namedtuple(
         'is_incompetent',
         'is_survived',
         'killer',
+        'killers',
+        'passings',
+        'failings',
         'exception_traceback',
         'exception',
         'tests_run',
@@ -90,6 +93,21 @@ class MutationTestResult:
         if killer:
             return killer.name
 
+    def _get_killers(self):
+        if self.failed:
+            return self.failed
+    
+    def get_killers(self):
+        killers = self._get_killers()
+        if killers:
+            return [killer.name for killer in killers]
+    
+    def get_passings(self):
+        return self.passed
+    
+    def get_failings(self):
+        return self.failed
+
     def get_exception_traceback(self):
         killer = self._get_killer()
         if killer:
@@ -109,6 +127,9 @@ class MutationTestResult:
             self.is_incompetent(),
             self.is_survived(),
             str(self.get_killer()),
+            self.get_killers(),
+            self.get_passings(),
+            self.get_failings(),
             str(self.get_exception_traceback()),
             self.get_exception(),
             self.tests_run() - self.tests_skipped(),
