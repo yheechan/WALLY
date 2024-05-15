@@ -35,7 +35,7 @@ def gather_testcase(testcase):
 
     # sanitize first        
     for file in dir_list:
-        print('dir: ' + file)
+        # print('dir: ' + file)
         file_list.remove(file)
 
     file_class_functions = {}
