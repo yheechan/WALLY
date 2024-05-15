@@ -41,4 +41,4 @@ RUN python3 -m pip install pytest-cov
 COPY . .
 
 # Permanently set the PATH in the container
-ENV PATH="/root/framework/bin:${PATH}"
+ENV PATH="/root/bugsinpy/framework/bin:${PATH}"
