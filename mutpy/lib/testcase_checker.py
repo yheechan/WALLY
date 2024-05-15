@@ -81,12 +81,12 @@ def gather_testcase(testcase):
         file_list.remove(file)
     
     for file in file_list:
-        print(file)
+        print('file: ' + file)
         print('\ttypes: ')
         print('\t\t'+file_class_functions[file]['type'])
         print('\ttest cases: ')
         print('\t\t', file_class_functions[file]['test_case'])
-
+        print()
     return file_list, file_class_functions
 
 def check_testcase(testcase, file_list, file_class_functions):
