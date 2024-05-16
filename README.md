@@ -16,3 +16,4 @@ bugsinpy-checkout -p spacy -v 0 -i 5
 cd mutpy/lib
 python3 testcase_checker.py
 ```
+it will show all the test cases in spacy.
