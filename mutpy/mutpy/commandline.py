@@ -5,9 +5,9 @@ from mutpy import __version__ as version
 from mutpy import controller, views, operators, utils
 
 
-def main(argv):
+def main(argv, test_results):
     parser = build_parser()
-    run_mutpy(parser)
+    run_mutpy(parser, test_results)
 
 
 def build_parser():
@@ -48,11 +48,14 @@ def build_parser():
     parser.add_argument('--list-hom-strategies', action='store_true', help='list available HOM strategies')
     parser.add_argument('--mutation-number', type=int, metavar='MUTATION_NUMBER',
                         help='run only one mutation (debug purpose)')
+    parser.add_argument('--save-pre-analysis', '-S', default=False, action='store_true',
+                        help='Save pre-analysis results as a file')
     return parser
 
 
-def run_mutpy(parser):
+def run_mutpy(parser, test_results):
     cfg = parser.parse_args()
+    cfg.test_results = test_results
     if cfg.list_operators:
         list_operators()
     elif cfg.list_hom_strategies:
@@ -80,6 +83,7 @@ def build_controller(cfg):
         disable_stdout=cfg.disable_stdout,
         mutate_covered=cfg.coverage,
         mutation_number=cfg.mutation_number,
+        test_results=cfg.test_results
     )
 
 

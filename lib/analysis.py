@@ -132,7 +132,8 @@ def gather_test_results(test_cases, source_dir, testing_tool):
 
 def write_pre_analysis(test_results, output_dir, save_pre_analysis):
     if save_pre_analysis:
-        with open(output_dir + "test_results.json", 'w') as f:
+        json_file = output_dir / 'test_results.json'
+        with open(json_file, 'w') as f:
             json.dump(test_results, f, indent=4)
 
 

@@ -27,14 +27,26 @@ def copy_node(mutate):
 
 
 class MutationOperator:
-    def mutate(self, node, to_mutate=None, sampler=None, coverage_injector=None, module=None, only_mutation=None):
+    def mutate(self, node, to_mutate=None, sampler=None, coverage_injector=None, module=None, only_mutation=None, failing_lines=None):
         self.to_mutate = to_mutate
         self.sampler = sampler
         self.only_mutation = only_mutation
         self.coverage_injector = coverage_injector
         self.module = module
+    
+        self.current_mutating_filename = module.__file__ if module else None
+        self.failing_file = ''
+        for file_name in failing_lines:
+            if file_name in self.current_mutating_filename:
+                self.failing_file = file_name
+        self.current_failing_file_lines = failing_lines[self.failing_file] if self.failing_file else None
+
         for new_node in self.visit(node):
-            yield Mutation(operator=self.__class__, node=self.current_node, visitor=self.visitor), new_node
+            mutation = Mutation(operator=self.__class__, node=self.current_node, visitor=self.visitor)
+            if mutation.node.lineno in self.current_failing_file_lines:
+                yield mutation, new_node
+            else:
+                print('skipped')
 
     def visit(self, node):
         if self.has_notmutate(node) or (self.coverage_injector and not self.coverage_injector.is_covered(node)):

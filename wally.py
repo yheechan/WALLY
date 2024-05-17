@@ -20,17 +20,18 @@ def main():
     save_pre_analysis = args.save_pre_analysis
 
     # RUN PRE-ANALYSIS (MEASURE INITAL TEST CASE RESULTS AND COVERAGE)
-    test_results = analysis.main(
-        source_dir, test_dir,
-        testing_tool, output_dir,
-        save_pre_analysis
-    )
-    print(json.dumps(test_results, indent=4))
+    # test_results = analysis.main(
+    #     source_dir, test_dir,
+    #     testing_tool, output_dir,
+    #     save_pre_analysis
+    # )
+    json_file = Path('pre-analysis/test_results.json')
+    test_results = json.load(json_file.open())
 
     # RUN MUTATION TESTING
     sys.path.append('mutpy/')
     from mutpy import commandline
-    commandline.main(sys.argv[1:])
+    commandline.main(sys.argv[1:], test_results)
 
 
 def make_parser():

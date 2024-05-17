@@ -50,7 +50,7 @@ class MutationScore:
 class MutationController(views.ViewNotifier):
 
     def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator,
-                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None):
+                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None, test_results=None):
         super().__init__(views)
         self.target_loader = target_loader
         self.test_loader = test_loader
@@ -59,6 +59,21 @@ class MutationController(views.ViewNotifier):
         self.stdout_manager = utils.StdoutManager(disable_stdout)
         self.mutation_number = mutation_number
         self.runner = runner_cls(self.test_loader, self.timeout_factor, self.stdout_manager, mutate_covered)
+        self.test_results = test_results
+        self.failing_lines = {}
+        for tc_result in test_results:
+            tc_outcome = test_results[tc_result]
+            if tc_outcome['test result'] == 'P':
+                continue
+
+            tc_coverage = tc_outcome['coverage']
+            for filename in tc_coverage['files']:
+                if filename not in self.failing_lines:
+                    self.failing_lines[filename] = set()
+                
+                for line in tc_coverage['files'][filename]['executed_lines']:
+                    self.failing_lines[filename].add(line)
+
 
     def run(self):
         self.notify_initialize(self.target_loader.names, self.test_loader.names)
@@ -116,7 +131,7 @@ class MutationController(views.ViewNotifier):
         # SHUFFLE THE MUTANTS
         mutant_list = []
         for mutations, mutant_ast in self.mutant_generator.mutate(target_ast, to_mutate, coverage_injector,
-                                                                  module=target_module):
+                                                                  module=target_module, failing_lines=self.failing_lines):
             mutant_list.append((mutations, deepcopy(mutant_ast)))
         random.shuffle(mutant_list)
 
@@ -313,9 +328,9 @@ class FirstOrderMutator:
         self.operators = operators
         self.sampler = utils.RandomSampler(percentage)
 
-    def mutate(self, target_ast, to_mutate=None, coverage_injector=None, module=None):
+    def mutate(self, target_ast, to_mutate=None, coverage_injector=None, module=None, failing_lines=None):
         for op in utils.sort_operators(self.operators):
-            for mutation, mutant in op().mutate(target_ast, to_mutate, self.sampler, coverage_injector, module=module):
+            for mutation, mutant in op().mutate(target_ast, to_mutate, self.sampler, coverage_injector, module=module, failing_lines=failing_lines):
                 yield [mutation], mutant
 
 

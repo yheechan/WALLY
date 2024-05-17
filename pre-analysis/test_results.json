@@ -1,6 +1,6 @@
 {
     "0": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -9,8 +9,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:52.784398",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:00.197084",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -33,17 +33,21 @@
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        4,
+                        5
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
+                        "covered_lines": 4,
+                        "num_statements": 5,
+                        "percent_covered": 80.0,
+                        "percent_covered_display": "80",
+                        "missing_lines": 1,
                         "excluded_lines": 0
                     },
-                    "missing_lines": [],
+                    "missing_lines": [
+                        6
+                    ],
                     "excluded_lines": []
                 },
                 "examples/chess/chess/pawn.py": {
@@ -82,17 +86,17 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
+                "covered_lines": 6,
+                "num_statements": 9,
                 "percent_covered": 66.66666666666667,
                 "percent_covered_display": "67",
-                "missing_lines": 2,
+                "missing_lines": 3,
                 "excluded_lines": 0
             }
         }
     },
     "1": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -101,8 +105,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:53.040442",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:00.829536",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -125,17 +129,21 @@
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        4,
+                        5
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
+                        "covered_lines": 4,
+                        "num_statements": 5,
+                        "percent_covered": 80.0,
+                        "percent_covered_display": "80",
+                        "missing_lines": 1,
                         "excluded_lines": 0
                     },
-                    "missing_lines": [],
+                    "missing_lines": [
+                        6
+                    ],
                     "excluded_lines": []
                 },
                 "examples/chess/chess/pawn.py": {
@@ -174,17 +182,17 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
+                "covered_lines": 6,
+                "num_statements": 9,
                 "percent_covered": 66.66666666666667,
                 "percent_covered_display": "67",
-                "missing_lines": 2,
+                "missing_lines": 3,
                 "excluded_lines": 0
             }
         }
     },
     "2": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -193,8 +201,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:53.282371",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:01.437291",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -216,18 +224,21 @@
                 },
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
-                        1
+                        1,
+                        3
                     ],
                     "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
+                        "covered_lines": 2,
+                        "num_statements": 5,
+                        "percent_covered": 40.0,
+                        "percent_covered_display": "40",
+                        "missing_lines": 3,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
-                        2
+                        4,
+                        5,
+                        6
                     ],
                     "excluded_lines": []
                 },
@@ -266,17 +277,17 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 5,
+                "num_statements": 9,
+                "percent_covered": 55.55555555555556,
+                "percent_covered_display": "56",
+                "missing_lines": 4,
                 "excluded_lines": 0
             }
         }
     },
     "3": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -285,8 +296,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:53.554425",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:02.063059",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -308,18 +319,21 @@
                 },
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
-                        1
+                        1,
+                        3
                     ],
                     "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
+                        "covered_lines": 2,
+                        "num_statements": 5,
+                        "percent_covered": 40.0,
+                        "percent_covered_display": "40",
+                        "missing_lines": 3,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
-                        2
+                        4,
+                        5,
+                        6
                     ],
                     "excluded_lines": []
                 },
@@ -358,17 +372,17 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 5,
+                "num_statements": 9,
+                "percent_covered": 55.55555555555556,
+                "percent_covered_display": "56",
+                "missing_lines": 4,
                 "excluded_lines": 0
             }
         }
     },
     "4": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -377,8 +391,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:53.802482",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:02.643904",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -400,18 +414,21 @@
                 },
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
-                        1
+                        1,
+                        3
                     ],
                     "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
+                        "covered_lines": 2,
+                        "num_statements": 5,
+                        "percent_covered": 40.0,
+                        "percent_covered_display": "40",
+                        "missing_lines": 3,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
-                        2
+                        4,
+                        5,
+                        6
                     ],
                     "excluded_lines": []
                 },
@@ -450,17 +467,17 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 5,
+                "num_statements": 9,
+                "percent_covered": 55.55555555555556,
+                "percent_covered_display": "56",
+                "missing_lines": 4,
                 "excluded_lines": 0
             }
         }
     },
     "5": {
-        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
         "type": [
             "pytest"
         ],
@@ -469,8 +486,8 @@
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.5.0",
-                "timestamp": "2024-05-17T13:35:54.052563",
+                "version": "7.4.4",
+                "timestamp": "2024-05-17T16:31:03.281303",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -492,18 +509,21 @@
                 },
                 "examples/chess/chess/knight.py": {
                     "executed_lines": [
-                        1
+                        1,
+                        3
                     ],
                     "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
+                        "covered_lines": 2,
+                        "num_statements": 5,
+                        "percent_covered": 40.0,
+                        "percent_covered_display": "40",
+                        "missing_lines": 3,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
-                        2
+                        4,
+                        5,
+                        6
                     ],
                     "excluded_lines": []
                 },
@@ -542,11 +562,11 @@
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 5,
+                "num_statements": 9,
+                "percent_covered": 55.55555555555556,
+                "percent_covered_display": "56",
+                "missing_lines": 4,
                 "excluded_lines": 0
             }
         }
