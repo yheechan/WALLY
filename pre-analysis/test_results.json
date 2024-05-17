@@ -1,0 +1,554 @@
+{
+    "0": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_knight_00",
+        "test result": "P",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:52.784398",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "1": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_knight_01",
+        "test result": "F",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:53.040442",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "2": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_rook_00",
+        "test result": "P",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:53.282371",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "3": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_rook_01",
+        "test result": "F",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:53.554425",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "4": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_pawn_00",
+        "test result": "P",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:53.802482",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "5": {
+        "test_file": "./examples/chess/tests/pytest_chess.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_pawn_01",
+        "test result": "F",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.5.0",
+                "timestamp": "2024-05-17T13:35:54.052563",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/chess/chess/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/knight.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/pawn.py": {
+                    "executed_lines": [
+                        1,
+                        2
+                    ],
+                    "summary": {
+                        "covered_lines": 2,
+                        "num_statements": 2,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/chess/chess/rook.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 1,
+                        "num_statements": 2,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        2
+                    ],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 4,
+                "num_statements": 6,
+                "percent_covered": 66.66666666666667,
+                "percent_covered_display": "67",
+                "missing_lines": 2,
+                "excluded_lines": 0
+            }
+        }
+    }
+}

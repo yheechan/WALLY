@@ -8,52 +8,37 @@ import subprocess
 available_test_tools = ['pytest', 'unittest']
 
 
-class DirectoryNotFoundError(Exception):
-    pass
+def main(source_dir, test_dir, testing_tool, output_dir, save_pre_analysis):
+    test_results = analyze(source_dir, test_dir, testing_tool, output_dir, save_pre_analysis)
+    return test_results
 
 
-def main():
-    parser = analysis_parser()
-    analyze(parser)
+def analyze(source_dir, test_dir, testing_tool, output_dir, save_pre_analysis):   
 
+    # 1. ASSERT THAT THE DIRECTORIES EXIST
+    directory_check(source_dir, test_dir, output_dir)
 
-def analysis_parser():
-    parser = argparse.ArgumentParser(description='Pre-analysis for MBFL')
-    parser.add_argument('--source-dir', '-s', type=str, required=True,
-                        help='Root directory of sources to be tested')
-    parser.add_argument('--test-dir', '-t', type=str, required=True,
-                        help='Root directory of test cases')
-    parser.add_argument('--testing-tool', '-T', type=str, choices=available_test_tools, default='pytest', 
-                        help='Testing tool to be used. Default is pytest')
-    parser.add_argument('--output-dir', '-o', type=str, default='./pre-analysis/',
-                        help='Directory of pre-analysis results will be stored')
-    return parser
+    # 2. GATHER TEST FILES
+    test_files = gather_test_files(test_dir)           # list
 
+    # 3. GATHER TEST CASES
+    test_cases = gather_test_cases(test_files, testing_tool)              # dictionary
 
-def analyze(parser):
-    args = parser.parse_args()
+    # 4. GATHER TEST RESULTS
+    test_results = gather_test_results(test_cases, source_dir, testing_tool)    # dictionary
+
+    # 5. WRITE PRE-ANALYSIS WHEN save_pre_analysis IS TRUE
+    write_pre_analysis(test_results, output_dir, save_pre_analysis)
     
-    directory_check(args)
+    # 6. RETURN TEST RESULTS
+    return test_results
 
-    test_files = gather_test_files(args.test_dir)           # list
 
-    test_cases = gather_test_cases(test_files, args)              # dictionary
-
-    test_results = gather_test_results(test_cases, args)    # dictionary
-
-    with open(args.output_dir + "test_results.json", 'w') as f:
-        json.dump(test_results, f, indent=4)
-
-def directory_check(args):
-    try:
-        if not os.path.exists(args.source_dir):
-            raise DirectoryNotFoundError(f"Directory '{args.source_dir}' not found.")
-        if not os.path.exists(args.test_dir):
-            raise DirectoryNotFoundError(f"Directory '{args.test_dir}' not found.")
-        if not os.path.exists(args.output_dir):
-            raise DirectoryNotFoundError(f"Directory '{args.output_dir}' not found.")
-    except DirectoryNotFoundError as e:
-        print("Error: ", e)
+def directory_check(source_dir, test_dir, output_dir):
+    # check if pathlib exists
+    assert source_dir.exists(), f"Directory '{source_dir}' not found."
+    assert test_dir.exists(), f"Directory '{test_dir}' not found."
+    assert output_dir.exists(), f"Directory '{output_dir}' not found."
 
 
 def gather_test_files(root_dir):
@@ -67,8 +52,8 @@ def gather_test_files(root_dir):
     return test_files
 
 
-def gather_test_cases(files, args):
-    separator = '::' if args.testing_tool == 'pytest' else '.'  # '::' for pytest and '.' for unittest
+def gather_test_cases(files, testing_tool):
+    separator = '::' if testing_tool == 'pytest' else '.'  # '::' for pytest and '.' for unittest
 
     test_cases = {}
 
@@ -105,24 +90,24 @@ def gather_test_cases(files, args):
     return test_cases
 
 
-def gather_test_results(test_cases, args):
+def gather_test_results(test_cases, source_dir, testing_tool):
     test_results = {}  
     test_id = 0
     
 
     for file, test_module in test_cases.items():
         # check wether the test module import the selected testing tool module
-        if args.testing_tool not in test_module['type']:
+        if testing_tool not in test_module['type']:
             continue
 
         for test_function in test_module['test functions']:
             test_results[test_id] = {'test_file': file, 'type': test_module['type'], 'test function' : test_function, 'test result' : '', 'coverage' : {}}
 
             # run testing tool
-            if args.testing_tool == 'pytest':
-                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + args.source_dir, '-m', args.testing_tool, '-k', test_function,  '-q', '--no-header', '--no-summary', file]
+            if testing_tool == 'pytest':
+                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + source_dir.__str__(), '-m', testing_tool, '-k', test_function,  '-q', '--no-header', '--no-summary', file]
             else:
-                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + args.source_dir, '-m', args.testing_tool, '-k', test_function, file]
+                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + source_dir.__str__(), '-m', testing_tool, '-k', test_function, file]
             
             print(' '.join(cmd))    # show progress
             result = subprocess.run(cmd, capture_output=True, text=True)
@@ -144,6 +129,11 @@ def gather_test_results(test_cases, args):
             test_id += 1
 
     return test_results
+
+def write_pre_analysis(test_results, output_dir, save_pre_analysis):
+    if save_pre_analysis:
+        with open(output_dir + "test_results.json", 'w') as f:
+            json.dump(test_results, f, indent=4)
 
 
 if __name__ == '__main__':

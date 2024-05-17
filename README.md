@@ -18,29 +18,48 @@ python3 testcase_checker.py
 ```
 it will show all the test cases in spacy.
 
-## Get test case results and coverage information before mutation
-
-`lib/analysis.py` runs a testing tool on the project's test cases and saves the results along with the coverage as a json file in `./pre-analysis/test_results.json`.
-
-Currently, `pytest` and `unittest` are supported as testing tools. Default tool is `pytest`
+## Executing ``wally.py``
 
 usage:
 ```
-python3 lib/analysis.py --source-dir <project source directory> --test-dir <test case directory> --testing-tool <testing tool>
+./wally.py --source-dir <project source directory> --test-dir <test case directory> --testing-tool <testing tool>
 ```
 or
 ```
-python3 lib/analysis.py -s <project source directory> -t <test case directory> -T <testing tool>
+./wally.py -s <project source directory> -t <test case directory> -T <testing tool>
 ```
 
 For more info,
 ```
-python3 lib/analysis.py --help
+./wally.py --help
+
+usage: wally.py [-h] --source-dir SOURCE_DIR --test-dir TEST_DIR [--testing-tool {pytest,unittest}] [--output-dir OUTPUT_DIR] [--save-pre-analysis]
+
+Pre-analysis for MBFL
+
+options:
+  -h, --help            show this help message and exit
+  --source-dir SOURCE_DIR, -s SOURCE_DIR
+                        Root directory of sources to be tested
+  --test-dir TEST_DIR, -t TEST_DIR
+                        Root directory of test cases
+  --testing-tool {pytest,unittest}, -T {pytest,unittest}
+                        Testing tool to be used. Default is pytest
+  --output-dir OUTPUT_DIR, -o OUTPUT_DIR
+                        Directory of pre-analysis results will be stored (default: ./pre-analysis/)
+  --save-pre-analysis, -S
+                        Save pre-analysis results as a file
 ```
 
 ### Example
 
 ```
-python3 lib/analysis.py --source-dir ./examples/chess/chess --test-dir ./examples/chess/tests --testing-tool pytest
+./wally.py --source-dir ./examples/chess/chess --test-dir ./examples/chess/tests --testing-tool pytest
 ```
+
+## What it does!
+
+### 1. Pre-analysis stage
+Wally first executes the each test cases against the target subject. During this stage, wally retrieves the results (pass or fail) & coverage of each individual test case.
+    * Currently, `pytest` and `unittest` are supported as testing tools. Default tool is `pytest`.
 
