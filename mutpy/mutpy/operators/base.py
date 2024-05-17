@@ -43,10 +43,10 @@ class MutationOperator:
 
         for new_node in self.visit(node):
             mutation = Mutation(operator=self.__class__, node=self.current_node, visitor=self.visitor)
+
+            # only generates mutants on lines executed by failing TCs
             if mutation.node.lineno in self.current_failing_file_lines:
                 yield mutation, new_node
-            else:
-                print('skipped')
 
     def visit(self, node):
         if self.has_notmutate(node) or (self.coverage_injector and not self.coverage_injector.is_covered(node)):

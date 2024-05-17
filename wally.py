@@ -31,7 +31,8 @@ def main():
     # RUN MUTATION TESTING
     sys.path.append('mutpy/')
     from mutpy import commandline
-    commandline.main(sys.argv[1:], test_results)
+    mbfl_results = commandline.main(sys.argv[1:], test_results)
+    print(json.dumps(mbfl_results, indent=4))
 
 
 def make_parser():

@@ -60,11 +60,34 @@ class MutationController(views.ViewNotifier):
         self.mutation_number = mutation_number
         self.runner = runner_cls(self.test_loader, self.timeout_factor, self.stdout_manager, mutate_covered)
         self.test_results = test_results
+        # key: filename1
+            # lineno: 
+                # m1: p2f f2p
+                # m2: p2f f2p
+                # ...
+            # lineno: ...
+        # filename2 ...
+        self.mbfl_results = {}
+
+        # GET LINES EXECUTED BY FAILING TCS PER EACH TARGET SOURCE CODE FILES
         self.failing_lines = {}
+        self.og_passing_tcs = []
+        self.og_failing_tcs = []
         for tc_result in test_results:
             tc_outcome = test_results[tc_result]
+        
+            # ORGANIZE PASSING AND FAILING TCS
             if tc_outcome['test result'] == 'P':
+                self.og_passing_tcs.append(
+                    (tc_outcome['test_file'],
+                    tc_outcome['test function'])
+                )
                 continue
+
+            self.og_failing_tcs.append(
+                (tc_outcome['test_file'],
+                tc_outcome['test function'])
+            )
 
             tc_coverage = tc_outcome['coverage']
             for filename in tc_coverage['files']:
@@ -73,6 +96,7 @@ class MutationController(views.ViewNotifier):
                 
                 for line in tc_coverage['files'][filename]['executed_lines']:
                     self.failing_lines[filename].add(line)
+        
 
 
     def run(self):
@@ -87,6 +111,8 @@ class MutationController(views.ViewNotifier):
         except utils.ModulesLoaderException as error:
             self.notify_cant_load(error.name, error.exception)
             sys.exit(-2)
+        
+        return self.mbfl_results
 
     def run_mutation_process(self):
         try:
@@ -138,13 +164,6 @@ class MutationController(views.ViewNotifier):
         # line2mutants = {}
         # run the mutants
         for mutations, mutant_ast in mutant_list:
-            # mutant_lineno = mutations[0].node.lineno
-
-            # # THIS CODE LIMITS MUTATION TESTING ON MUTANTS POSITIONED AT LINES_BY_FAILING_TC
-            # if mutant_lineno not in []:
-            #     continue
-
-
             # # THIS CODE LIMITS MUTATION TESTING ON A SINGLE LINE TO MAX_NUM_MUTANTS_PER_LINE
             # if mutant_lineno not in line2mutants:
             #     line2mutants[mutant_lineno] = 0
@@ -186,6 +205,59 @@ class MutationController(views.ViewNotifier):
 
     def run_tests_with_mutant(self, total_duration, mutant_module, mutations, coverage_result):
         result, duration = self.runner.run_tests_with_mutant(total_duration, mutant_module, mutations, coverage_result)
+
+        # RECORD P2F AND F2P OF THIS MUTANT
+        # IN WHICH THE MUTANT IS OF A CERTAIN LINENO OF A CERTAIN FILE
+        mutant_lineno = mutations[0].node.lineno
+        mutant_filename = mutant_module.__file__
+        if mutant_filename not in self.mbfl_results:
+            self.mbfl_results[mutant_filename] = {}
+
+        if mutant_lineno not in self.mbfl_results[mutant_filename]:
+            self.mbfl_results[mutant_filename][mutant_lineno] = []
+        
+        # CALCULATE P2F AND F2P
+        p2f = 0
+        f2p = 0
+        p2p = 0
+        f2f = 0
+        for passing in result.passings:
+            info = passing.name.split('::')
+            p_filename = info[0]
+            p_funcname = info[1]
+
+            for og_passing in self.og_passing_tcs:
+                if p_filename in og_passing[0] and p_funcname == og_passing[1]:
+                    p2p += 1
+                    break
+            
+            for og_failing in self.og_failing_tcs:
+                if p_filename in og_failing[0] and p_funcname == og_failing[1]:
+                    p2f += 1
+                    break
+        
+        for failing in result.failings:
+            info = failing.name.split('::')
+            f_filename = info[0]
+            f_funcname = info[1]
+
+            for og_passing in self.og_passing_tcs:
+                if f_filename in og_passing[0] and f_funcname == og_passing[1]:
+                    f2p += 1
+                    break
+            
+            for og_failing in self.og_failing_tcs:
+                if f_filename in og_failing[0] and f_funcname == og_failing[1]:
+                    f2f += 1
+                    break
+        
+        self.mbfl_results[mutant_filename][mutant_lineno].append({
+            'p2f': p2f,
+            'f2p': f2p,
+            'p2p': p2p,
+            'f2f': f2f
+        })
+
         self.update_score_and_notify_views(result, duration)
 
     def update_score_and_notify_views(self, result, mutant_duration):

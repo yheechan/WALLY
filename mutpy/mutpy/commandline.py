@@ -7,7 +7,7 @@ from mutpy import controller, views, operators, utils
 
 def main(argv, test_results):
     parser = build_parser()
-    run_mutpy(parser, test_results)
+    return run_mutpy(parser, test_results)
 
 
 def build_parser():
@@ -62,9 +62,11 @@ def run_mutpy(parser, test_results):
         list_hom_strategies()
     elif cfg.target and cfg.unit_test:
         mutation_controller = build_controller(cfg)
-        mutation_controller.run()
+        mbfl_results = mutation_controller.run()
     else:
         parser.print_usage()
+    
+    return mbfl_results
 
 
 def build_controller(cfg):
