@@ -1,3 +1,4 @@
+from typing import Any
 import pytest
 from _pytest.config import default_plugins
 
@@ -5,10 +6,10 @@ from mutpy.test_runners.base import BaseTestSuite, BaseTestRunner, MutationTestR
 
 
 class PytestMutpyPlugin:
-
-    def __init__(self, skipped_tests):
+    def __init__(self, skipped_tests, pytest_function_timeout):
         self.skipped_tests = skipped_tests
         self.mutation_test_result = MutationTestResult()
+        self.pytest_function_timeout = pytest_function_timeout
 
     def has_failed_before(self, nodeid):
         return next((test for test in self.mutation_test_result.failed if test.name == nodeid), None) is not None
@@ -20,6 +21,11 @@ class PytestMutpyPlugin:
         for item in items:
             if item.nodeid in self.skipped_tests:
                 item.add_marker(pytest.mark.skip)
+            # Add pytest-timeout plugin's timeout marker 
+            # pytest to run tach collection(function) without process-level timeout
+            timeout_marker = pytest.mark.timeout(self.pytest_function_timeout, func_only=True)
+            if item.get_closest_marker('timeout') is None:
+                item.add_marker(timeout_marker)
 
     def pytest_runtest_logreport(self, report):
         if report.skipped:
@@ -54,18 +60,27 @@ class PytestMutpyCoveragePlugin:
 
 
 class PytestMutpyTestDiscoveryPlugin:
-    def __init__(self):
+    def __init__(self, pytest_function_timeout=10):
         self.tests = []
+        self.pytest_function_timeout = pytest_function_timeout
 
     def pytest_collection_modifyitems(self, items):
         for item in items:
             self.tests.append(item)
+        # Add pytest-timeout plugin's timeout marker 
+        # pytest to run tach collection(function) without process-level timeout
+        timeout_marker = pytest.mark.timeout(self.pytest_function_timeout, func_only=True)
+        if item.get_closest_marker('timeout') is None:
+            item.add_marker(timeout_marker)
 
 
 class PytestTestSuite(BaseTestSuite):
-    def __init__(self):
+    def __init__(self, pytest_function_timeout=10, pytest_session_timeout=600):
         self.tests = set()
         self.skipped_tests = set()
+        self.pytest_function_timeout = pytest_function_timeout
+        self.pytest_session_timeout = pytest_session_timeout
+
 
     def add_tests(self, test_module, target_test):
         if target_test:
@@ -79,18 +94,20 @@ class PytestTestSuite(BaseTestSuite):
         self.skipped_tests.add(test.internal_test_obj.nodeid)
 
     def run(self):
-        mutpy_plugin = PytestMutpyPlugin(skipped_tests=self.skipped_tests)
-        pytest.main(args=list(self.tests) + ['-p', 'no:terminal'], plugins=list(default_plugins) + [mutpy_plugin])
+        mutpy_plugin = PytestMutpyPlugin(skipped_tests=self.skipped_tests, pytest_function_timeout=self.pytest_function_timeout)
+        pytest.main(args=list(self.tests) + ['-p', 'no:terminal', '--timeout-disable-debugger-detection', f"--session-timeout={self.pytest_session_timeout}"],
+                    plugins=list(default_plugins) + [mutpy_plugin])
         return mutpy_plugin.mutation_test_result
 
     def run_with_coverage(self, coverage_injector=None):
         mutpy_plugin = PytestMutpyCoveragePlugin(coverage_injector=coverage_injector)
-        pytest.main(list(self.tests) + ['-p', 'no:terminal'], plugins=list(default_plugins) + [mutpy_plugin])
+        pytest.main(list(self.tests) + ['-p', 'no:terminal', '--timeout-disable-debugger-detection', f"--session-timeout={self.pytest_session_timeout}"],
+                    plugins=list(default_plugins) + [mutpy_plugin])
         return mutpy_plugin.coverage_result
 
     def __iter__(self):
-        mutpy_plugin = PytestMutpyTestDiscoveryPlugin()
-        pytest.main(args=list(self.tests) + ['--collect-only', '-p', 'no:terminal'],
+        mutpy_plugin = PytestMutpyTestDiscoveryPlugin(pytest_function_timeout=self.pytest_function_timeout)
+        pytest.main(args=list(self.tests) + ['--collect-only', '-p', 'no:terminal', '--timeout-disable-debugger-detection', f"--session-timeout={self.pytest_session_timeout}"],
                     plugins=list(default_plugins) + [mutpy_plugin])
         for test in mutpy_plugin.tests:
             yield PytestTest(test)
@@ -107,3 +124,17 @@ class PytestTest(BaseTest):
 
 class PytestTestRunner(BaseTestRunner):
     test_suite_cls = PytestTestSuite
+
+    def __init__(self, *args, **kwargs):
+        self.pytest_function_timeout = 10
+        self.pytest_session_timeout = 600
+        return super().__init__(*args, **kwargs)
+    
+    def set_function_timeout(self, pytest_function_timeout):
+        self.pytest_function_timeout = pytest_function_timeout
+    
+    def set_session_timeout(self, pytest_session_timeout):
+        self.pytest_session_timeout = pytest_session_timeout
+
+    def create_empty_test_suite(self):
+        return self.test_suite_cls(self.pytest_function_timeout, self.pytest_session_timeout)

@@ -49,8 +49,9 @@ class MutationScore:
 
 class MutationController(views.ViewNotifier):
 
-    def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator,
-                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None, test_results=None):
+    def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator, pytest_function_timeout, pytest_session_timeout,
+                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None, test_results=None,
+                 ):
         super().__init__(views)
         self.target_loader = target_loader
         self.test_loader = test_loader
@@ -59,6 +60,8 @@ class MutationController(views.ViewNotifier):
         self.stdout_manager = utils.StdoutManager(disable_stdout)
         self.mutation_number = mutation_number
         self.runner = runner_cls(self.test_loader, self.timeout_factor, self.stdout_manager, mutate_covered)
+        self.runner.set_function_timeout(pytest_function_timeout)
+        self.runner.set_session_timeout(pytest_session_timeout)
         self.test_results = test_results
         # key: filename1
             # lineno: 

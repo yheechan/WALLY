@@ -67,6 +67,10 @@ def make_parser():
     parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
                         help='Save MBFL results as a file')
     parser.add_argument('--show-mutants', '-m', action='store_true', help='show mutants source code')
+    parser.add_argument('--pytest-function-timeout', type=int, default=10, 
+                        help='set timeout for each testcase function')
+    parser.add_argument('--pytest-session-timeout', type=int, default=600, 
+                        help='set timeout for each test module')
     return parser
 
 

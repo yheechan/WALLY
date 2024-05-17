@@ -169,6 +169,14 @@ class BaseTestRunner:
         self.stdout_manager = stdout_manager
         self.mutate_covered = mutate_covered
         self.init_modules = self.find_init_modules()
+    
+    def set_function_timeout(self, *args, **kwargs):
+        Warning('BaseTestRunner.set_function_timeout is not implemented')
+        pass
+    
+    def set_session_timeout(self, *args, **kwargs):
+        Warning('BaseTestRunner.set_session_timeout is not implemented')
+        pass
 
     def create_empty_test_suite(self):
         return self.test_suite_cls()

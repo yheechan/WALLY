@@ -54,6 +54,10 @@ def build_parser():
                         help='Save pre-analysis results as a file')
     parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
                         help='Save MBFL results as a file')
+    parser.add_argument('--pytest-function-timeout', default=10, 
+                        help='set timeout for each testcase function')
+    parser.add_argument('--pytest-session-timeout', default=600, 
+                        help='set timeout for each test module')
     return parser
 
 
@@ -89,7 +93,9 @@ def build_controller(cfg):
         disable_stdout=cfg.disable_stdout,
         mutate_covered=cfg.coverage,
         mutation_number=cfg.mutation_number,
-        test_results=cfg.test_results
+        test_results=cfg.test_results,
+        pytest_function_timeout=cfg.pytest_function_timeout,
+        pytest_session_timeout=cfg.pytest_session_timeout
     )
 
 
