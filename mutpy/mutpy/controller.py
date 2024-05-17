@@ -206,6 +206,10 @@ class MutationController(views.ViewNotifier):
     def run_tests_with_mutant(self, total_duration, mutant_module, mutations, coverage_result):
         result, duration = self.runner.run_tests_with_mutant(total_duration, mutant_module, mutations, coverage_result)
 
+        if result == None:
+            self.update_score_and_notify_views(None, duration)
+            return
+        
         # RECORD P2F AND F2P OF THIS MUTANT
         # IN WHICH THE MUTANT IS OF A CERTAIN LINENO OF A CERTAIN FILE
         mutant_lineno = mutations[0].node.lineno
