@@ -209,7 +209,7 @@ class MutationController(views.ViewNotifier):
         if result == None:
             self.update_score_and_notify_views(None, duration)
             return
-        
+
         # RECORD P2F AND F2P OF THIS MUTANT
         # IN WHICH THE MUTANT IS OF A CERTAIN LINENO OF A CERTAIN FILE
         mutant_lineno = mutations[0].node.lineno
@@ -218,7 +218,13 @@ class MutationController(views.ViewNotifier):
             self.mbfl_results[mutant_filename] = {}
 
         if mutant_lineno not in self.mbfl_results[mutant_filename]:
-            self.mbfl_results[mutant_filename][mutant_lineno] = []
+            self.mbfl_results[mutant_filename][mutant_lineno] = {}
+            self.mbfl_results[mutant_filename][mutant_lineno]['mutants'] = []
+            self.mbfl_results[mutant_filename][mutant_lineno]['total_features'] = {
+                'total_p2f': 0,
+                'total_f2p': 0
+            }
+            self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] = 0
         
         # CALCULATE P2F AND F2P
         p2f = 0
@@ -255,12 +261,16 @@ class MutationController(views.ViewNotifier):
                     f2f += 1
                     break
         
-        self.mbfl_results[mutant_filename][mutant_lineno].append({
+        self.mbfl_results[mutant_filename][mutant_lineno]['mutants'].append({
             'p2f': p2f,
             'f2p': f2p,
             'p2p': p2p,
             'f2f': f2f
         })
+
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_p2f'] += p2f
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_f2p'] += f2p
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] += 1
 
         self.update_score_and_notify_views(result, duration)
 

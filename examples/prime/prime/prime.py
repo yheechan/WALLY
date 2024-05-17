@@ -1,6 +1,6 @@
 import sys
 
-MAXPRIMES = 999999
+MAXPRIMES = 50
 
 def prime(n):
     primes = [0] * MAXPRIMES

@@ -1,0 +1,54 @@
+{
+    "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/chess/pawn.py": {
+        "2": {
+            "mutants": [
+                {
+                    "p2f": 0,
+                    "f2p": 1,
+                    "p2p": 3,
+                    "f2f": 2
+                }
+            ],
+            "total_features": {
+                "total_p2f": 0,
+                "total_f2p": 1,
+                "mutant_cnt": 1
+            },
+            "suspiciousness": 0.25
+        },
+        "total_f2p": 1,
+        "total_p2f": 0
+    },
+    "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/chess/rook.py": {
+        "2": {
+            "mutants": [
+                {
+                    "p2f": 0,
+                    "f2p": 2,
+                    "p2p": 2,
+                    "f2f": 2
+                },
+                {
+                    "p2f": 0,
+                    "f2p": 1,
+                    "p2p": 3,
+                    "f2f": 2
+                },
+                {
+                    "p2f": 0,
+                    "f2p": 2,
+                    "p2p": 2,
+                    "f2f": 2
+                }
+            ],
+            "total_features": {
+                "total_p2f": 0,
+                "total_f2p": 5,
+                "mutant_cnt": 3
+            },
+            "suspiciousness": 0.20833333333333331
+        },
+        "total_f2p": 5,
+        "total_p2f": 0
+    }
+}

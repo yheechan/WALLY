@@ -1,5 +1,6 @@
 import argparse
 import sys
+import json
 
 from mutpy import __version__ as version
 from mutpy import controller, views, operators, utils
@@ -7,7 +8,8 @@ from mutpy import controller, views, operators, utils
 
 def main(argv, test_results):
     parser = build_parser()
-    return run_mutpy(parser, test_results)
+    mbfl_results = run_mutpy(parser, test_results)
+    return mbfl_results
 
 
 def build_parser():
@@ -50,6 +52,8 @@ def build_parser():
                         help='run only one mutation (debug purpose)')
     parser.add_argument('--save-pre-analysis', '-S', default=False, action='store_true',
                         help='Save pre-analysis results as a file')
+    parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
+                        help='Save MBFL results as a file')
     return parser
 
 

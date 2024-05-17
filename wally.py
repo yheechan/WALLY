@@ -2,6 +2,7 @@
 import sys
 import argparse
 import lib.analysis as analysis
+import lib.mbfl as mbfl
 import json
 from pathlib import Path
 
@@ -16,15 +17,15 @@ def main():
     source_dir = Path(args.target[0]).resolve()
     test_dir = Path(args.unit_test[0]).resolve()
     testing_tool = args.runner
-    output_dir = Path(args.output_dir).resolve()
+    output_dir = Path('pre-analysis').resolve()
     save_pre_analysis = args.save_pre_analysis
 
     # RUN PRE-ANALYSIS (MEASURE INITAL TEST CASE RESULTS AND COVERAGE)
-    # test_results = analysis.main(
-    #     source_dir, test_dir,
-    #     testing_tool, output_dir,
-    #     save_pre_analysis
-    # )
+    test_results = analysis.main(
+        source_dir, test_dir,
+        testing_tool, output_dir,
+        save_pre_analysis
+    )
     json_file = Path('pre-analysis/test_results.json')
     test_results = json.load(json_file.open())
 
@@ -32,7 +33,14 @@ def main():
     sys.path.append('mutpy/')
     from mutpy import commandline
     mbfl_results = commandline.main(sys.argv[1:], test_results)
-    print(json.dumps(mbfl_results, indent=4))
+
+    mbfl_file = Path('mbfl_results.json')
+    mbfl_results = json.load(mbfl_file.open())
+    mbfl.calc_susp_score(mbfl_results)
+    
+    if args.save_mbfl_results:
+        with open('mbfl_results.json', 'w') as f:
+            json.dump(mbfl_results, f, indent=4)
 
 
 def make_parser():
@@ -48,10 +56,10 @@ def make_parser():
                         metavar='RUNNER', help='test runner')
     # parser.add_argument('--testing-tool', '-T', type=str, choices=available_test_tools, default='pytest', 
     #                     help='Testing tool to be used. Default is pytest')
-    parser.add_argument('--output-dir', '-o', type=str, default='./pre-analysis/',
-                        help='Directory of pre-analysis results will be stored (default: ./pre-analysis/)')
     parser.add_argument('--save-pre-analysis', '-S', default=False, action='store_true',
                         help='Save pre-analysis results as a file')
+    parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
+                        help='Save MBFL results as a file')
     parser.add_argument('--show-mutants', '-m', action='store_true', help='show mutants source code')
     return parser
 
