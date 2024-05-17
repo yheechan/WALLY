@@ -31,10 +31,16 @@ def main():
 
     # RUN MUTATION TESTING
     sys.path.append('mutpy/')
+    #sys.path.append(__file__[:-9] + "/mutpy")
     from mutpy import commandline
     mbfl_results = commandline.main(sys.argv[1:], test_results)
 
+    if args.save_mbfl_results:
+        with open('mbfl_results.json', 'w') as f:
+            json.dump(mbfl_results, f, indent=4)
+
     mbfl_file = Path('mbfl_results.json')
+
     mbfl_results = json.load(mbfl_file.open())
     mbfl.calc_susp_score(mbfl_results)
     

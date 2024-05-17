@@ -39,7 +39,7 @@ class MutationOperator:
         for file_name in failing_lines:
             if file_name in self.current_mutating_filename:
                 self.failing_file = file_name
-        self.current_failing_file_lines = failing_lines[self.failing_file] if self.failing_file else None
+        self.current_failing_file_lines = failing_lines[self.failing_file] if self.failing_file else []
 
         for new_node in self.visit(node):
             mutation = Mutation(operator=self.__class__, node=self.current_node, visitor=self.visitor)
