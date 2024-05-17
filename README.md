@@ -22,39 +22,36 @@ it will show all the test cases in spacy.
 
 usage:
 ```
-./wally.py --source-dir <project source directory> --test-dir <test case directory> --testing-tool <testing tool>
-```
-or
-```
-./wally.py -s <project source directory> -t <test case directory> -T <testing tool>
+./wally.py --target <project source directory> --unit-test <test case directory> --runner <testing tool> --save-pre-analysis -m
 ```
 
 For more info,
 ```
 ./wally.py --help
 
-usage: wally.py [-h] --source-dir SOURCE_DIR --test-dir TEST_DIR [--testing-tool {pytest,unittest}] [--output-dir OUTPUT_DIR] [--save-pre-analysis]
+usage: wally.py [-h] [--target TARGET [TARGET ...]] [--unit-test UNIT_TEST [UNIT_TEST ...]] [--runner RUNNER] [--output-dir OUTPUT_DIR]
+                [--save-pre-analysis] [--show-mutants]
 
 Pre-analysis for MBFL
 
 options:
   -h, --help            show this help message and exit
-  --source-dir SOURCE_DIR, -s SOURCE_DIR
-                        Root directory of sources to be tested
-  --test-dir TEST_DIR, -t TEST_DIR
-                        Root directory of test cases
-  --testing-tool {pytest,unittest}, -T {pytest,unittest}
-                        Testing tool to be used. Default is pytest
+  --target TARGET [TARGET ...], -t TARGET [TARGET ...]
+                        target module or package to mutate
+  --unit-test UNIT_TEST [UNIT_TEST ...], -u UNIT_TEST [UNIT_TEST ...]
+                        test class, test method, module or package with unit tests
+  --runner RUNNER       test runner
   --output-dir OUTPUT_DIR, -o OUTPUT_DIR
                         Directory of pre-analysis results will be stored (default: ./pre-analysis/)
   --save-pre-analysis, -S
                         Save pre-analysis results as a file
+  --show-mutants, -m    show mutants source code
 ```
 
 ### Example
 
 ```
-./wally.py --source-dir ./examples/chess/chess --test-dir ./examples/chess/tests --testing-tool pytest
+./wally.py --target ./examples/chess/chess --unit-test ./examples/chess/tests --runner pytest -m
 ```
 
 ## What it does!
