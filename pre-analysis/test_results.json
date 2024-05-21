@@ -1,21 +1,21 @@
 {
     "0": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/masters/24-1/cs453-automated-software-testing/team-project/WALLY/examples/prime/tests/test_prime.py",
         "type": [
             "pytest"
         ],
-        "test function": "test_knight_00",
-        "test result": "P",
+        "test function": "test_prime_00",
+        "test result": "F",
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:54.570715",
+                "version": "7.5.0",
+                "timestamp": "2024-05-21T17:18:55.236745",
                 "branch_coverage": false,
                 "show_contexts": false
             },
             "files": {
-                "examples/chess/chess/__init__.py": {
+                "examples/prime/prime/__init__.py": {
                     "executed_lines": [
                         1
                     ],
@@ -30,14 +30,30 @@
                     "missing_lines": [],
                     "excluded_lines": []
                 },
-                "examples/chess/chess/knight.py": {
+                "examples/prime/prime/prime.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        11,
+                        13,
+                        14,
+                        16,
+                        17,
+                        18,
+                        19,
+                        21,
+                        22,
+                        23,
+                        25
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
+                        "covered_lines": 18,
+                        "num_statements": 18,
                         "percent_covered": 100.0,
                         "percent_covered_display": "100",
                         "missing_lines": 0,
@@ -45,69 +61,35 @@
                     },
                     "missing_lines": [],
                     "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 18,
+                "num_statements": 18,
+                "percent_covered": 100.0,
+                "percent_covered_display": "100",
+                "missing_lines": 0,
                 "excluded_lines": 0
             }
         }
     },
     "1": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/masters/24-1/cs453-automated-software-testing/team-project/WALLY/examples/prime/tests/test_prime.py",
         "type": [
             "pytest"
         ],
-        "test function": "test_knight_01",
-        "test result": "P",
+        "test function": "test_prime_01",
+        "test result": "F",
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:54.925469",
+                "version": "7.5.0",
+                "timestamp": "2024-05-21T17:18:57.253108",
                 "branch_coverage": false,
                 "show_contexts": false
             },
             "files": {
-                "examples/chess/chess/__init__.py": {
+                "examples/prime/prime/__init__.py": {
                     "executed_lines": [
                         1
                     ],
@@ -122,14 +104,30 @@
                     "missing_lines": [],
                     "excluded_lines": []
                 },
-                "examples/chess/chess/knight.py": {
+                "examples/prime/prime/prime.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        11,
+                        13,
+                        14,
+                        16,
+                        17,
+                        18,
+                        19,
+                        21,
+                        22,
+                        23,
+                        25
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
+                        "covered_lines": 18,
+                        "num_statements": 18,
                         "percent_covered": 100.0,
                         "percent_covered_display": "100",
                         "missing_lines": 0,
@@ -137,69 +135,35 @@
                     },
                     "missing_lines": [],
                     "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 18,
+                "num_statements": 18,
+                "percent_covered": 100.0,
+                "percent_covered_display": "100",
+                "missing_lines": 0,
                 "excluded_lines": 0
             }
         }
     },
     "2": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/masters/24-1/cs453-automated-software-testing/team-project/WALLY/examples/prime/tests/test_prime.py",
         "type": [
             "pytest"
         ],
-        "test function": "test_rook_00",
+        "test function": "test_prime_02",
         "test result": "P",
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:55.279204",
+                "version": "7.5.0",
+                "timestamp": "2024-05-21T17:18:59.299710",
                 "branch_coverage": false,
                 "show_contexts": false
             },
             "files": {
-                "examples/chess/chess/__init__.py": {
+                "examples/prime/prime/__init__.py": {
                     "executed_lines": [
                         1
                     ],
@@ -214,176 +178,67 @@
                     "missing_lines": [],
                     "excluded_lines": []
                 },
-                "examples/chess/chess/knight.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
+                "examples/prime/prime/prime.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        11,
+                        25
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
+                        "covered_lines": 9,
+                        "num_statements": 18,
+                        "percent_covered": 50.0,
+                        "percent_covered_display": "50",
+                        "missing_lines": 9,
                         "excluded_lines": 0
                     },
-                    "missing_lines": [],
+                    "missing_lines": [
+                        13,
+                        14,
+                        16,
+                        17,
+                        18,
+                        19,
+                        21,
+                        22,
+                        23
+                    ],
                     "excluded_lines": []
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
+                "covered_lines": 9,
+                "num_statements": 18,
+                "percent_covered": 50.0,
+                "percent_covered_display": "50",
+                "missing_lines": 9,
                 "excluded_lines": 0
             }
         }
     },
     "3": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
+        "test_file": "/home/yang/masters/24-1/cs453-automated-software-testing/team-project/WALLY/examples/prime/tests/test_prime.py",
         "type": [
             "pytest"
         ],
-        "test function": "test_rook_01",
-        "test result": "F",
-        "coverage": {
-            "meta": {
-                "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:55.644168",
-                "branch_coverage": false,
-                "show_contexts": false
-            },
-            "files": {
-                "examples/chess/chess/__init__.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 0,
-                        "num_statements": 0,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/knight.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
-                    "executed_lines": [
-                        1,
-                        2
-                    ],
-                    "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [],
-                    "excluded_lines": []
-                }
-            },
-            "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
-                "excluded_lines": 0
-            }
-        }
-    },
-    "4": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
-        "type": [
-            "pytest"
-        ],
-        "test function": "test_pawn_00",
+        "test function": "test_prime_03",
         "test result": "P",
         "coverage": {
             "meta": {
                 "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:55.992588",
+                "version": "7.5.0",
+                "timestamp": "2024-05-21T17:19:01.419934",
                 "branch_coverage": false,
                 "show_contexts": false
             },
             "files": {
-                "examples/chess/chess/__init__.py": {
+                "examples/prime/prime/__init__.py": {
                     "executed_lines": [
                         1
                     ],
@@ -398,154 +253,45 @@
                     "missing_lines": [],
                     "excluded_lines": []
                 },
-                "examples/chess/chess/knight.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
+                "examples/prime/prime/prime.py": {
                     "executed_lines": [
                         1,
-                        2
+                        3,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        11,
+                        13,
+                        14,
+                        16,
+                        17,
+                        21,
+                        22,
+                        23,
+                        25
                     ],
                     "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
+                        "covered_lines": 16,
+                        "num_statements": 18,
+                        "percent_covered": 88.88888888888889,
+                        "percent_covered_display": "89",
+                        "missing_lines": 2,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
-                        2
+                        18,
+                        19
                     ],
                     "excluded_lines": []
                 }
             },
             "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
-                "missing_lines": 2,
-                "excluded_lines": 0
-            }
-        }
-    },
-    "5": {
-        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/chess/tests/pytest_chess.py",
-        "type": [
-            "pytest"
-        ],
-        "test function": "test_pawn_01",
-        "test result": "F",
-        "coverage": {
-            "meta": {
-                "format": 2,
-                "version": "7.4.4",
-                "timestamp": "2024-05-17T19:15:56.391853",
-                "branch_coverage": false,
-                "show_contexts": false
-            },
-            "files": {
-                "examples/chess/chess/__init__.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 0,
-                        "num_statements": 0,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/knight.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/pawn.py": {
-                    "executed_lines": [
-                        1,
-                        2
-                    ],
-                    "summary": {
-                        "covered_lines": 2,
-                        "num_statements": 2,
-                        "percent_covered": 100.0,
-                        "percent_covered_display": "100",
-                        "missing_lines": 0,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [],
-                    "excluded_lines": []
-                },
-                "examples/chess/chess/rook.py": {
-                    "executed_lines": [
-                        1
-                    ],
-                    "summary": {
-                        "covered_lines": 1,
-                        "num_statements": 2,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 1,
-                        "excluded_lines": 0
-                    },
-                    "missing_lines": [
-                        2
-                    ],
-                    "excluded_lines": []
-                }
-            },
-            "totals": {
-                "covered_lines": 4,
-                "num_statements": 6,
-                "percent_covered": 66.66666666666667,
-                "percent_covered_display": "67",
+                "covered_lines": 16,
+                "num_statements": 18,
+                "percent_covered": 88.88888888888889,
+                "percent_covered_display": "89",
                 "missing_lines": 2,
                 "excluded_lines": 0
             }

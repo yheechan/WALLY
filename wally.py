@@ -21,11 +21,11 @@ def main():
     save_pre_analysis = args.save_pre_analysis
 
     # RUN PRE-ANALYSIS (MEASURE INITAL TEST CASE RESULTS AND COVERAGE)
-    test_results = analysis.main(
-        source_dir, test_dir,
-        testing_tool, output_dir,
-        save_pre_analysis
-    )
+    # test_results = analysis.main(
+    #     source_dir, test_dir,
+    #     testing_tool, output_dir,
+    #     save_pre_analysis
+    # )
     json_file = Path('pre-analysis/test_results.json')
     test_results = json.load(json_file.open())
 
@@ -39,10 +39,14 @@ def main():
         with open('mbfl_results.json', 'w') as f:
             json.dump(mbfl_results, f, indent=4)
 
-    mbfl_file = Path('mbfl_results.json')
 
-    mbfl_results = json.load(mbfl_file.open())
-    mbfl.calc_susp_score(mbfl_results)
+
+    # mbfl_file = Path('mbfl_results.json')
+    # mbfl_results = json.load(mbfl_file.open())
+
+    
+    mbfl_results = mbfl.calc_susp_score(mbfl_results)
+    mbfl.show_in_order(mbfl_results)
     
     if args.save_mbfl_results:
         with open('mbfl_results.json', 'w') as f:

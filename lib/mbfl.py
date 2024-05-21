@@ -46,3 +46,12 @@ def calc_susp_score(mbfl_results):
     print(json.dumps(mbfl_results, indent=4))
     
     return mbfl_results
+
+
+def show_in_order(mbfl_results):
+    # show mbfl line information in order of suspiciousness
+    for filename in mbfl_results:
+        for line in mbfl_results[filename]:
+            if line == 'total_f2p' or line == 'total_p2f':
+                continue
+            print(f"{filename}:{line} - {mbfl_results[filename][line]['suspiciousness']}")

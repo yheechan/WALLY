@@ -13,7 +13,7 @@ def main(argv, test_results):
 
 
 def build_parser():
-    DEF_TIMEOUT_FACTOR = 5
+    DEF_TIMEOUT_FACTOR = 50
     parser = argparse.ArgumentParser(description='Mutation testing tool for Python 3.x source code. ',
                                      fromfile_prefix_chars='@')
     parser.add_argument('--version', '-v', action='version', version='%(prog)s {}'.format(version))
