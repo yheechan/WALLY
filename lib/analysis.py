@@ -36,9 +36,15 @@ def analyze(source_dir, test_dir, testing_tool, output_dir, save_pre_analysis):
 
 def directory_check(source_dir, test_dir, output_dir):
     # check if pathlib exists
-    assert source_dir.exists(), f"Directory '{source_dir}' not found."
-    assert test_dir.exists(), f"Directory '{test_dir}' not found."
-    assert output_dir.exists(), f"Directory '{output_dir}' not found."
+    # assert source_dir.exists(), f"Directory '{source_dir}' not found."
+    if not source_dir.exists():
+        os.makedirs(source_dir)
+    # assert test_dir.exists(), f"Directory '{test_dir}' not found."
+    if not test_dir.exists():
+        os.makedirs(test_dir)
+    # assert output_dir.exists(), f"Directory '{output_dir}' not found."
+    if not output_dir.exists():
+        os.makedirs(output_dir)
 
 
 def gather_test_files(root_dir):
