@@ -221,7 +221,7 @@ class MutationController(views.ViewNotifier):
             self.mbfl_results[mutant_filename] = {}
             self.mbfl_results[mutant_filename]["lines"] = {}
 
-        if mutant_lineno not in self.mbfl_results[mutant_filename]:
+        if mutant_lineno not in self.mbfl_results[mutant_filename]["lines"]:
             self.mbfl_results[mutant_filename]["lines"][mutant_lineno] = {}
             self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['mutants'] = []
             self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features'] = {
