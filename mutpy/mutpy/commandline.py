@@ -13,7 +13,7 @@ def main(argv, test_results):
 
 
 def build_parser():
-    DEF_TIMEOUT_FACTOR = 50
+    DEF_TIMEOUT_FACTOR = 60
     parser = argparse.ArgumentParser(description='Mutation testing tool for Python 3.x source code. ',
                                      fromfile_prefix_chars='@')
     parser.add_argument('--version', '-v', action='version', version='%(prog)s {}'.format(version))
@@ -54,9 +54,9 @@ def build_parser():
                         help='Save pre-analysis results as a file')
     parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
                         help='Save MBFL results as a file')
-    parser.add_argument('--pytest-function-timeout', default=10, 
+    parser.add_argument('--pytest-function-timeout', default=1, 
                         help='set timeout for each testcase function')
-    parser.add_argument('--pytest-session-timeout', default=600, 
+    parser.add_argument('--pytest-session-timeout', default=60, 
                         help='set timeout for each test module')
     return parser
 
