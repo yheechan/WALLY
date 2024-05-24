@@ -6,7 +6,7 @@ def test_knight_00():
 
 # failing test for knight
 def test_knight_01():
-    assert(knight.knight_frontright(1, 2) == (2, 4))
+    assert(knight.knight_frontright(1, 2) == (2, 3))
 
 def test_rook_00():
     assert(rook.rook_right(1, 1) == (2, 1))

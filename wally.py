@@ -21,13 +21,13 @@ def main():
     save_pre_analysis = args.save_pre_analysis
 
     # RUN PRE-ANALYSIS (MEASURE INITAL TEST CASE RESULTS AND COVERAGE)
-    # test_results = analysis.main(
-    #     source_dir, test_dir,
-    #     testing_tool, output_dir,
-    #     save_pre_analysis
-    # )
-    json_file = Path('pre-analysis/test_results.json')
-    test_results = json.load(json_file.open())
+    test_results = analysis.main(
+        source_dir, test_dir,
+        testing_tool, output_dir,
+        save_pre_analysis
+    )
+    # json_file = Path('pre-analysis/test_results.json')
+    # test_results = json.load(json_file.open())
 
     # RUN MUTATION TESTING
     sys.path.append('mutpy/')
@@ -35,9 +35,9 @@ def main():
     from mutpy import commandline
     mbfl_results = commandline.main(sys.argv[1:], test_results)
 
-    if args.save_mbfl_results:
-        with open('mbfl_results.json', 'w') as f:
-            json.dump(mbfl_results, f, indent=4)
+    # if args.save_mbfl_results:
+    #     with open('mbfl_results.json', 'w') as f:
+    #         json.dump(mbfl_results, f, indent=4)
 
 
 

@@ -219,15 +219,16 @@ class MutationController(views.ViewNotifier):
         mutant_filename = mutant_module.__file__
         if mutant_filename not in self.mbfl_results:
             self.mbfl_results[mutant_filename] = {}
+            self.mbfl_results[mutant_filename]["lines"] = {}
 
         if mutant_lineno not in self.mbfl_results[mutant_filename]:
-            self.mbfl_results[mutant_filename][mutant_lineno] = {}
-            self.mbfl_results[mutant_filename][mutant_lineno]['mutants'] = []
-            self.mbfl_results[mutant_filename][mutant_lineno]['total_features'] = {
+            self.mbfl_results[mutant_filename]["lines"][mutant_lineno] = {}
+            self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['mutants'] = []
+            self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features'] = {
                 'total_p2f': 0,
                 'total_f2p': 0
             }
-            self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] = 0
+            self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features']['mutant_cnt'] = 0
         
         # CALCULATE P2F AND F2P
         p2f = 0
@@ -246,7 +247,7 @@ class MutationController(views.ViewNotifier):
             
             for og_failing in self.og_failing_tcs:
                 if p_filename in og_failing[0] and p_funcname == og_failing[1]:
-                    p2f += 1
+                    f2p += 1
                     break
         
         for failing in result.failings:
@@ -256,7 +257,7 @@ class MutationController(views.ViewNotifier):
 
             for og_passing in self.og_passing_tcs:
                 if f_filename in og_passing[0] and f_funcname == og_passing[1]:
-                    f2p += 1
+                    p2f += 1
                     break
             
             for og_failing in self.og_failing_tcs:
@@ -264,16 +265,16 @@ class MutationController(views.ViewNotifier):
                     f2f += 1
                     break
         
-        self.mbfl_results[mutant_filename][mutant_lineno]['mutants'].append({
+        self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['mutants'].append({
             'p2f': p2f,
             'f2p': f2p,
             'p2p': p2p,
             'f2f': f2f
         })
 
-        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_p2f'] += p2f
-        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_f2p'] += f2p
-        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] += 1
+        self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features']['total_p2f'] += p2f
+        self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features']['total_f2p'] += f2p
+        self.mbfl_results[mutant_filename]["lines"][mutant_lineno]['total_features']['mutant_cnt'] += 1
 
         self.update_score_and_notify_views(result, duration)
 
