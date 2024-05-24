@@ -10,7 +10,7 @@
             "meta": {
                 "format": 2,
                 "version": "7.4.4",
-                "timestamp": "2024-05-24T21:20:54.554155",
+                "timestamp": "2024-05-24T21:29:13.996619",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -38,26 +38,27 @@
                     ],
                     "summary": {
                         "covered_lines": 3,
-                        "num_statements": 6,
-                        "percent_covered": 50.0,
-                        "percent_covered_display": "50",
-                        "missing_lines": 3,
+                        "num_statements": 7,
+                        "percent_covered": 42.857142857142854,
+                        "percent_covered_display": "43",
+                        "missing_lines": 4,
                         "excluded_lines": 0
                     },
                     "missing_lines": [
                         4,
                         5,
-                        6
+                        6,
+                        7
                     ],
                     "excluded_lines": []
                 }
             },
             "totals": {
                 "covered_lines": 3,
-                "num_statements": 6,
-                "percent_covered": 50.0,
-                "percent_covered_display": "50",
-                "missing_lines": 3,
+                "num_statements": 7,
+                "percent_covered": 42.857142857142854,
+                "percent_covered_display": "43",
+                "missing_lines": 4,
                 "excluded_lines": 0
             }
         }
@@ -73,7 +74,7 @@
             "meta": {
                 "format": 2,
                 "version": "7.4.4",
-                "timestamp": "2024-05-24T21:20:54.926249",
+                "timestamp": "2024-05-24T21:29:14.430122",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -99,13 +100,14 @@
                         2,
                         4,
                         5,
-                        6
+                        6,
+                        7
                     ],
                     "summary": {
-                        "covered_lines": 5,
-                        "num_statements": 6,
-                        "percent_covered": 83.33333333333333,
-                        "percent_covered_display": "83",
+                        "covered_lines": 6,
+                        "num_statements": 7,
+                        "percent_covered": 85.71428571428571,
+                        "percent_covered_display": "86",
                         "missing_lines": 1,
                         "excluded_lines": 0
                     },
@@ -116,10 +118,10 @@
                 }
             },
             "totals": {
-                "covered_lines": 5,
-                "num_statements": 6,
-                "percent_covered": 83.33333333333333,
-                "percent_covered_display": "83",
+                "covered_lines": 6,
+                "num_statements": 7,
+                "percent_covered": 85.71428571428571,
+                "percent_covered_display": "86",
                 "missing_lines": 1,
                 "excluded_lines": 0
             }
@@ -136,7 +138,7 @@
             "meta": {
                 "format": 2,
                 "version": "7.4.4",
-                "timestamp": "2024-05-24T21:20:55.308186",
+                "timestamp": "2024-05-24T21:29:14.864066",
                 "branch_coverage": false,
                 "show_contexts": false
             },
@@ -162,13 +164,14 @@
                         2,
                         4,
                         5,
-                        6
+                        6,
+                        7
                     ],
                     "summary": {
-                        "covered_lines": 5,
-                        "num_statements": 6,
-                        "percent_covered": 83.33333333333333,
-                        "percent_covered_display": "83",
+                        "covered_lines": 6,
+                        "num_statements": 7,
+                        "percent_covered": 85.71428571428571,
+                        "percent_covered_display": "86",
                         "missing_lines": 1,
                         "excluded_lines": 0
                     },
@@ -179,10 +182,74 @@
                 }
             },
             "totals": {
-                "covered_lines": 5,
-                "num_statements": 6,
-                "percent_covered": 83.33333333333333,
-                "percent_covered_display": "83",
+                "covered_lines": 6,
+                "num_statements": 7,
+                "percent_covered": 85.71428571428571,
+                "percent_covered_display": "86",
+                "missing_lines": 1,
+                "excluded_lines": 0
+            }
+        }
+    },
+    "3": {
+        "test_file": "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/factorial/tests/test_factorial.py",
+        "type": [
+            "pytest"
+        ],
+        "test function": "test_factorial_ten",
+        "test result": "F",
+        "coverage": {
+            "meta": {
+                "format": 2,
+                "version": "7.4.4",
+                "timestamp": "2024-05-24T21:29:15.292374",
+                "branch_coverage": false,
+                "show_contexts": false
+            },
+            "files": {
+                "examples/factorial/factorial/__init__.py": {
+                    "executed_lines": [
+                        1
+                    ],
+                    "summary": {
+                        "covered_lines": 0,
+                        "num_statements": 0,
+                        "percent_covered": 100.0,
+                        "percent_covered_display": "100",
+                        "missing_lines": 0,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [],
+                    "excluded_lines": []
+                },
+                "examples/factorial/factorial/factorial.py": {
+                    "executed_lines": [
+                        1,
+                        2,
+                        4,
+                        5,
+                        6,
+                        7
+                    ],
+                    "summary": {
+                        "covered_lines": 6,
+                        "num_statements": 7,
+                        "percent_covered": 85.71428571428571,
+                        "percent_covered_display": "86",
+                        "missing_lines": 1,
+                        "excluded_lines": 0
+                    },
+                    "missing_lines": [
+                        3
+                    ],
+                    "excluded_lines": []
+                }
+            },
+            "totals": {
+                "covered_lines": 6,
+                "num_statements": 7,
+                "percent_covered": 85.71428571428571,
+                "percent_covered_display": "86",
                 "missing_lines": 1,
                 "excluded_lines": 0
             }

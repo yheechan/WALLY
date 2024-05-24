@@ -7,37 +7,37 @@
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     }
                 ],
                 "total_features": {
@@ -53,70 +53,70 @@
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
+                    },
+                    {
+                        "p2f": 0,
+                        "f2p": 3,
+                        "p2p": 1,
+                        "f2f": 0
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
+                    }
+                ],
+                "total_features": {
+                    "total_p2f": 0,
+                    "total_f2p": 3,
+                    "mutant_cnt": 6
+                },
+                "suspiciousness": 0.10714285714285714
+            },
+            "2": {
+                "mutants": [
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 1,
+                        "f2f": 3
                     },
                     {
                         "p2f": 0,
                         "f2p": 0,
                         "p2p": 1,
-                        "f2f": 2
+                        "f2f": 3
                     }
                 ],
                 "total_features": {
                     "total_p2f": 0,
                     "total_f2p": 0,
-                    "mutant_cnt": 6
-                },
-                "suspiciousness": 0.0
-            },
-            "2": {
-                "mutants": [
-                    {
-                        "p2f": 1,
-                        "f2p": 1,
-                        "p2p": 0,
-                        "f2f": 1
-                    },
-                    {
-                        "p2f": 1,
-                        "f2p": 1,
-                        "p2p": 0,
-                        "f2f": 1
-                    }
-                ],
-                "total_features": {
-                    "total_p2f": 2,
-                    "total_f2p": 2,
                     "mutant_cnt": 2
                 },
                 "suspiciousness": 0.0
             }
         },
-        "total_f2p": 2,
-        "total_p2f": 2
+        "total_f2p": 3,
+        "total_p2f": 0
     }
 }
