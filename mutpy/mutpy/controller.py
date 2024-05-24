@@ -49,8 +49,9 @@ class MutationScore:
 
 class MutationController(views.ViewNotifier):
 
-    def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator,
-                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None):
+    def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator, pytest_function_timeout, pytest_session_timeout,
+                 timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None, test_results=None,
+                 ):
         super().__init__(views)
         self.target_loader = target_loader
         self.test_loader = test_loader
@@ -59,6 +60,47 @@ class MutationController(views.ViewNotifier):
         self.stdout_manager = utils.StdoutManager(disable_stdout)
         self.mutation_number = mutation_number
         self.runner = runner_cls(self.test_loader, self.timeout_factor, self.stdout_manager, mutate_covered)
+        self.runner.set_function_timeout(pytest_function_timeout)
+        self.runner.set_session_timeout(pytest_session_timeout)
+        self.test_results = test_results
+        # key: filename1
+            # lineno: 
+                # m1: p2f f2p
+                # m2: p2f f2p
+                # ...
+            # lineno: ...
+        # filename2 ...
+        self.mbfl_results = {}
+
+        # GET LINES EXECUTED BY FAILING TCS PER EACH TARGET SOURCE CODE FILES
+        self.failing_lines = {}
+        self.og_passing_tcs = []
+        self.og_failing_tcs = []
+        for tc_result in test_results:
+            tc_outcome = test_results[tc_result]
+        
+            # ORGANIZE PASSING AND FAILING TCS
+            if tc_outcome['test result'] == 'P':
+                self.og_passing_tcs.append(
+                    (tc_outcome['test_file'],
+                    tc_outcome['test function'])
+                )
+                continue
+
+            self.og_failing_tcs.append(
+                (tc_outcome['test_file'],
+                tc_outcome['test function'])
+            )
+
+            tc_coverage = tc_outcome['coverage']
+            for filename in tc_coverage['files']:
+                if filename not in self.failing_lines:
+                    self.failing_lines[filename] = set()
+                
+                for line in tc_coverage['files'][filename]['executed_lines']:
+                    self.failing_lines[filename].add(line)
+        
+
 
     def run(self):
         self.notify_initialize(self.target_loader.names, self.test_loader.names)
@@ -72,6 +114,8 @@ class MutationController(views.ViewNotifier):
         except utils.ModulesLoaderException as error:
             self.notify_cant_load(error.name, error.exception)
             sys.exit(-2)
+        
+        return self.mbfl_results
 
     def run_mutation_process(self):
         try:
@@ -116,20 +160,13 @@ class MutationController(views.ViewNotifier):
         # SHUFFLE THE MUTANTS
         mutant_list = []
         for mutations, mutant_ast in self.mutant_generator.mutate(target_ast, to_mutate, coverage_injector,
-                                                                  module=target_module):
+                                                                  module=target_module, failing_lines=self.failing_lines):
             mutant_list.append((mutations, deepcopy(mutant_ast)))
         random.shuffle(mutant_list)
 
         # line2mutants = {}
         # run the mutants
         for mutations, mutant_ast in mutant_list:
-            # mutant_lineno = mutations[0].node.lineno
-
-            # # THIS CODE LIMITS MUTATION TESTING ON MUTANTS POSITIONED AT LINES_BY_FAILING_TC
-            # if mutant_lineno not in []:
-            #     continue
-
-
             # # THIS CODE LIMITS MUTATION TESTING ON A SINGLE LINE TO MAX_NUM_MUTANTS_PER_LINE
             # if mutant_lineno not in line2mutants:
             #     line2mutants[mutant_lineno] = 0
@@ -171,6 +208,73 @@ class MutationController(views.ViewNotifier):
 
     def run_tests_with_mutant(self, total_duration, mutant_module, mutations, coverage_result):
         result, duration = self.runner.run_tests_with_mutant(total_duration, mutant_module, mutations, coverage_result)
+
+        if result == None:
+            self.update_score_and_notify_views(None, duration)
+            return
+
+        # RECORD P2F AND F2P OF THIS MUTANT
+        # IN WHICH THE MUTANT IS OF A CERTAIN LINENO OF A CERTAIN FILE
+        mutant_lineno = mutations[0].node.lineno
+        mutant_filename = mutant_module.__file__
+        if mutant_filename not in self.mbfl_results:
+            self.mbfl_results[mutant_filename] = {}
+
+        if mutant_lineno not in self.mbfl_results[mutant_filename]:
+            self.mbfl_results[mutant_filename][mutant_lineno] = {}
+            self.mbfl_results[mutant_filename][mutant_lineno]['mutants'] = []
+            self.mbfl_results[mutant_filename][mutant_lineno]['total_features'] = {
+                'total_p2f': 0,
+                'total_f2p': 0
+            }
+            self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] = 0
+        
+        # CALCULATE P2F AND F2P
+        p2f = 0
+        f2p = 0
+        p2p = 0
+        f2f = 0
+        for passing in result.passings:
+            info = passing.name.split('::')
+            p_filename = info[0]
+            p_funcname = info[1]
+
+            for og_passing in self.og_passing_tcs:
+                if p_filename in og_passing[0] and p_funcname == og_passing[1]:
+                    p2p += 1
+                    break
+            
+            for og_failing in self.og_failing_tcs:
+                if p_filename in og_failing[0] and p_funcname == og_failing[1]:
+                    p2f += 1
+                    break
+        
+        for failing in result.failings:
+            info = failing.name.split('::')
+            f_filename = info[0]
+            f_funcname = info[1]
+
+            for og_passing in self.og_passing_tcs:
+                if f_filename in og_passing[0] and f_funcname == og_passing[1]:
+                    f2p += 1
+                    break
+            
+            for og_failing in self.og_failing_tcs:
+                if f_filename in og_failing[0] and f_funcname == og_failing[1]:
+                    f2f += 1
+                    break
+        
+        self.mbfl_results[mutant_filename][mutant_lineno]['mutants'].append({
+            'p2f': p2f,
+            'f2p': f2p,
+            'p2p': p2p,
+            'f2f': f2f
+        })
+
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_p2f'] += p2f
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['total_f2p'] += f2p
+        self.mbfl_results[mutant_filename][mutant_lineno]['total_features']['mutant_cnt'] += 1
+
         self.update_score_and_notify_views(result, duration)
 
     def update_score_and_notify_views(self, result, mutant_duration):
@@ -313,9 +417,9 @@ class FirstOrderMutator:
         self.operators = operators
         self.sampler = utils.RandomSampler(percentage)
 
-    def mutate(self, target_ast, to_mutate=None, coverage_injector=None, module=None):
+    def mutate(self, target_ast, to_mutate=None, coverage_injector=None, module=None, failing_lines=None):
         for op in utils.sort_operators(self.operators):
-            for mutation, mutant in op().mutate(target_ast, to_mutate, self.sampler, coverage_injector, module=module):
+            for mutation, mutant in op().mutate(target_ast, to_mutate, self.sampler, coverage_injector, module=module, failing_lines=failing_lines):
                 yield [mutation], mutant
 
 

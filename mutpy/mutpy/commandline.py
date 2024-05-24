@@ -1,17 +1,19 @@
 import argparse
 import sys
+import json
 
 from mutpy import __version__ as version
 from mutpy import controller, views, operators, utils
 
 
-def main(argv):
+def main(argv, test_results):
     parser = build_parser()
-    run_mutpy(parser)
+    mbfl_results = run_mutpy(parser, test_results)
+    return mbfl_results
 
 
 def build_parser():
-    DEF_TIMEOUT_FACTOR = 5
+    DEF_TIMEOUT_FACTOR = 50
     parser = argparse.ArgumentParser(description='Mutation testing tool for Python 3.x source code. ',
                                      fromfile_prefix_chars='@')
     parser.add_argument('--version', '-v', action='version', version='%(prog)s {}'.format(version))
@@ -48,20 +50,31 @@ def build_parser():
     parser.add_argument('--list-hom-strategies', action='store_true', help='list available HOM strategies')
     parser.add_argument('--mutation-number', type=int, metavar='MUTATION_NUMBER',
                         help='run only one mutation (debug purpose)')
+    parser.add_argument('--save-pre-analysis', '-S', default=False, action='store_true',
+                        help='Save pre-analysis results as a file')
+    parser.add_argument('--save-mbfl-results', '-M', default=False, action='store_true',
+                        help='Save MBFL results as a file')
+    parser.add_argument('--pytest-function-timeout', default=10, 
+                        help='set timeout for each testcase function')
+    parser.add_argument('--pytest-session-timeout', default=600, 
+                        help='set timeout for each test module')
     return parser
 
 
-def run_mutpy(parser):
+def run_mutpy(parser, test_results):
     cfg = parser.parse_args()
+    cfg.test_results = test_results
     if cfg.list_operators:
         list_operators()
     elif cfg.list_hom_strategies:
         list_hom_strategies()
     elif cfg.target and cfg.unit_test:
         mutation_controller = build_controller(cfg)
-        mutation_controller.run()
+        mbfl_results = mutation_controller.run()
     else:
         parser.print_usage()
+    
+    return mbfl_results
 
 
 def build_controller(cfg):
@@ -80,6 +93,9 @@ def build_controller(cfg):
         disable_stdout=cfg.disable_stdout,
         mutate_covered=cfg.coverage,
         mutation_number=cfg.mutation_number,
+        test_results=cfg.test_results,
+        pytest_function_timeout=cfg.pytest_function_timeout,
+        pytest_session_timeout=cfg.pytest_session_timeout
     )
 
 
