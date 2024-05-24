@@ -58,6 +58,16 @@ class LogicalOperatorReplacement(MutationOperator):
     def mutate_RShift(self, node):
         return ast.LShift()
 
+    # The following methods are not present in the original code
+    def mutate_BitAnd_to_BitXor(self, node):
+        return ast.BitXor()
+    
+    def mutate_BitOr_to_BitXor(self, node):
+        return ast.BitXor()
+    
+    def mutate_BitXor_to_BitOr(self, node):
+        return ast.BitOr()
+
 
 class RelationalOperatorReplacement(MutationOperator):
     def mutate_Lt(self, node):
@@ -89,3 +99,22 @@ class RelationalOperatorReplacement(MutationOperator):
 
     def mutate_NotEq(self, node):
         return ast.Eq()
+
+    # The following methods are not present in the original code
+    def mutate_Lt_to_GtE(self, node):
+        return ast.GtE()
+    
+    def mutate_Gt_to_LtE(self, node):
+        return ast.LtE()
+    
+    def mutate_LtE_to_Gt(self, node):
+        return ast.Gt()
+    
+    def mutate_LtE_to_GtE(self, node):
+        return ast.GtE()
+    
+    def mutate_GtE_to_Lt(self, node):
+        return ast.Lt()
+    
+    def mutate_GtE_to_LtE(self, node):
+        return ast.LtE()
