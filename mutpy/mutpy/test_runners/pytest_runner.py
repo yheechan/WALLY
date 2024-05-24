@@ -126,8 +126,8 @@ class PytestTestRunner(BaseTestRunner):
     test_suite_cls = PytestTestSuite
 
     def __init__(self, *args, **kwargs):
-        self.pytest_function_timeout = 10
-        self.pytest_session_timeout = 600
+        self.pytest_function_timeout = 1
+        self.pytest_session_timeout = 60
         return super().__init__(*args, **kwargs)
     
     def set_function_timeout(self, pytest_function_timeout):
