@@ -37,8 +37,9 @@ class PytestMutpyPlugin:
                 if not hasattr(report, 'longreprtext'):
                     with open("Output.txt", "w") as text_file:
                         text_file.write(report.nodeid + ' ' + vars(report))
-                self.mutation_test_result.add_failed(report.nodeid, report.longrepr.reprcrash.message.splitlines()[0],
-                                                     report.longreprtext)
+            # if there is a type error, the all tests should be marked as failed
+            self.mutation_test_result.add_failed(report.nodeid, report.longrepr.reprcrash.message.splitlines()[0],
+                                                    report.longreprtext)
         elif report.passed and report.when == 'teardown' and not self.has_failed_before(report.nodeid) \
                 and not self.has_been_skipped_before(report.nodeid):
             self.mutation_test_result.add_passed(report.nodeid)
