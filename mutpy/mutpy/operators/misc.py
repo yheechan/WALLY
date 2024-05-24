@@ -44,6 +44,19 @@ class ConstantReplacement(MutationOperator):
 
         return ast.Str(s='')
 
+    # The following methods are not present in the original code
+    def mutate_Num_to_Zero(self, node):
+        return ast.Num(n=0)
+    
+    def mutate_Num_to_One(self, node):
+        return ast.Num(n=1)
+    
+    def mutate_Num_to_NegOne(self, node):
+        return ast.Num(n=-1)
+    
+    def mutate_Num_to_Minus(self, node):
+        return ast.Num(n=node.n - 1)
+    
     @classmethod
     def name(cls):
         return 'CRP'
