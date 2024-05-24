@@ -23,13 +23,13 @@ function activate(context) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from wally!');
 		
-		// make this extension open a file in project root directory named wally.json
+		// 1. make this extension open a file in project root directory named wally.json
 		const fs = require('fs');
 		const path = require('path');
 		const rootPath = vscode.workspace.rootPath;
 		const filePath = path.join(rootPath, 'wally.json');
 		
-		// read this json confiugration file and save it to a variable as json type
+		// 2. read this json confiugration file and save it to a variable as json type
 		let data
 		try {
 			data = fs.readFileSync(filePath, 'utf8');
@@ -37,9 +37,27 @@ function activate(context) {
 		catch (err) {
 			console.error(err);
 		}
-		// parse the json data to a variable
+		
+		// 3. parse the json data to a variable
 		const jsonData = JSON.parse(data);
 		console.log(jsonData);
+
+		let target = jsonData.target;
+		let unittest = jsonData.unit_test;
+
+
+		// 4. execute the command
+		// python3 ./wally-src/wally.py --target ./examples/maxify/maxify --unit-test ./examples/maxify/tests --runner pytest -m
+		const exec = require('child_process').exec;
+		const command = `./wally-src/wally.py --target ${target} --unit-test ${unittest} --runner pytest -m`;
+		exec(command, (err, stdout, stderr) => {
+			if (err) {
+				console.error(err);
+				console.error(stderr);
+				return;
+			}
+			console.log(stdout);
+		});
 
 		
 	});
