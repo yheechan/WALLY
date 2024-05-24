@@ -1,62 +1,65 @@
-# WALLY: We Can LocaLize Your faulty lines
+# wally README
 
-## How to use Docker
-```
-docker image build -t test .
-```
-```
-docker run -p 2222:2222 -t -i test
-```
-It will automatically set up bugsinpy.
+This is the README for your extension "wally". After writing up a brief description, we recommend including the following sections.
+
+## Features
+
+Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+
+For example if there is an image subfolder under your extension project workspace:
+
+\!\[feature X\]\(images/feature-x.png\)
+
+> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+
+## Requirements
+
+If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+
+## Extension Settings
+
+Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+
+For example:
+
+This extension contributes the following settings:
+
+* `myExtension.enable`: Enable/disable this extension.
+* `myExtension.thing`: Set to `blah` to do something.
+
+## Known Issues
+
+Calling out known issues can help limit users opening duplicate issues against your extension.
+
+## Release Notes
+
+Users appreciate release notes as you update your extension.
+
+### 1.0.0
+
+Initial release of ...
+
+### 1.0.1
+
+Fixed issue #.
+
+### 1.1.0
+
+Added features X, Y, and Z.
 
 ---
-In docker, (now testcase_check only support spacy)
-```
-bugsinpy-checkout -p spacy -v 0 -i 5
-cd mutpy/lib
-python3 testcase_checker.py
-```
-it will show all the test cases in spacy.
 
-## Executing ``wally.py``
+## Working with Markdown
 
-usage:
-```
-./wally.py --target <project source directory> --unit-test <test case directory> --runner <testing tool> --save-pre-analysis -m
-```
+You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
 
-For more info,
-```
-./wally.py --help
+* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
+* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
+* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
 
-usage: wally.py [-h] [--target TARGET [TARGET ...]] [--unit-test UNIT_TEST [UNIT_TEST ...]] [--runner RUNNER] [--output-dir OUTPUT_DIR]
-                [--save-pre-analysis] [--show-mutants]
+## For more information
 
-Pre-analysis for MBFL
+* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-options:
-  -h, --help            show this help message and exit
-  --target TARGET [TARGET ...], -t TARGET [TARGET ...]
-                        target module or package to mutate
-  --unit-test UNIT_TEST [UNIT_TEST ...], -u UNIT_TEST [UNIT_TEST ...]
-                        test class, test method, module or package with unit tests
-  --runner RUNNER       test runner
-  --output-dir OUTPUT_DIR, -o OUTPUT_DIR
-                        Directory of pre-analysis results will be stored (default: ./pre-analysis/)
-  --save-pre-analysis, -S
-                        Save pre-analysis results as a file
-  --show-mutants, -m    show mutants source code
-```
-
-### Example
-
-```
-./wally.py --target ./examples/chess/chess --unit-test ./examples/chess/tests --runner pytest -m
-```
-
-## What it does!
-
-### 1. Pre-analysis stage
-Wally first executes the each test cases against the target subject. During this stage, wally retrieves the results (pass or fail) & coverage of each individual test case.
-    * Currently, `pytest` and `unittest` are supported as testing tools. Default tool is `pytest`.
-
+**Enjoy!**
