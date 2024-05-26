@@ -26,7 +26,7 @@ function activate(context) {
 		// 1. make this extension open a file in project root directory named wally.json
 		const fs = require('fs');
 		const path = require('path');
-		const rootPath = vscode.workspace.rootPath;
+		const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		const filePath = path.join(rootPath, 'wally.json');
 		
 		// 2. read this json confiugration file and save it to a variable as json type
@@ -42,14 +42,16 @@ function activate(context) {
 		const jsonData = JSON.parse(data);
 		console.log(jsonData);
 
-		let target = jsonData.target;
-		let unittest = jsonData.unit_test;
-
+		let target = path.join(rootPath, jsonData.target);
+		let unittest = path.join(rootPath, jsonData.unit_test);
+		let tool = jsonData.tool;
 
 		// 4. execute the command
 		// python3 ./wally-src/wally.py --target ./examples/maxify/maxify --unit-test ./examples/maxify/tests --runner pytest -m
+		const extensionPath = context.extensionPath;
+		const script = path.join(extensionPath, 'wally-src', 'wally.py');
 		const exec = require('child_process').exec;
-		const command = `./wally-src/wally.py --target ${target} --unit-test ${unittest} --runner pytest -m`;
+		const command = ['python', `${script}`, `--target ${target}`, `--unit-test ${unittest}`, `--runner ${tool}`, '--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
 		exec(command, (err, stdout, stderr) => {
 			if (err) {
 				console.error(err);

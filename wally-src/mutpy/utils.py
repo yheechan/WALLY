@@ -354,7 +354,7 @@ class MutationTestRunnerThread(MutationTestRunner, Thread):
         self.result = None
 
     def terminate(self):
-        if self.isAlive():
+        if self.is_alive():
             res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(self.ident), ctypes.py_object(SystemExit))
             if res == 0:
                 raise ValueError('Invalid thread id.')
@@ -418,5 +418,5 @@ def sort_operators(operators):
 
 def f(text):
     lines = text.split('\n')[1:-1]
-    indention = re.search('(\s*).*', lines[0]).group(1)
+    indention = re.search(r'(\s*).*', lines[0]).group(1)
     return '\n'.join(line[len(indention):] for line in lines)
