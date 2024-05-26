@@ -53,7 +53,7 @@ def gather_test_files(root_dir):
     for root, _, files in os.walk(root_dir):
         for file in files:
             if (file.startswith('test_') or file.startswith('pytest_')) and file.endswith('.py'):
-                test_files.append(root + '/' + file)
+                test_files.append(os.path.join(root, file))
 
     return test_files
 
@@ -111,11 +111,11 @@ def gather_test_results(test_cases, source_dir, testing_tool):
 
             # run testing tool
             if testing_tool == 'pytest':
-                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + source_dir.__str__(), '-m', testing_tool, '-k', test_function,  '-q', '--no-header', '--no-summary', file]
+                cmd = ['python', '-m', 'coverage', 'run', '--source=' + source_dir.__str__().replace(" ", "\\ "), '-m', testing_tool, '-k', test_function,  '-q', '--no-header', '--no-summary', file.replace(" ", "\\ ")]
             else:
-                cmd = ['python3', '-m', 'coverage', 'run', '--source=' + source_dir.__str__(), '-m', testing_tool, '-k', test_function, file]
+                cmd = ['python', '-m', 'coverage', 'run', '--source=' + source_dir.__str__().replace(" ", "\\ "), '-m', testing_tool, '-k', test_function, file.replace(" ", "\\ ")]
             
-            print(' '.join(cmd))    # show progress
+            print('Running test: ' + test_function + ' in ' + os.path.basename(file))
             result = subprocess.run(cmd, capture_output=True, text=True)
             
             output = result.stdout + result.stderr
@@ -125,7 +125,7 @@ def gather_test_results(test_cases, source_dir, testing_tool):
             else:                                               # test fail
                 test_results[test_id]['test result'] = 'F'
 
-            cmd = ['python3', '-m', 'coverage', 'json']
+            cmd = ['python', '-m', 'coverage', 'json']
             result = subprocess.run(cmd, capture_output=True, text=True)
 
             with open('coverage.json') as f:
@@ -138,7 +138,7 @@ def gather_test_results(test_cases, source_dir, testing_tool):
 
 def write_pre_analysis(test_results, output_dir, save_pre_analysis):
     if save_pre_analysis:
-        json_file = output_dir / 'test_results.json'
+        json_file = os.path.join(output_dir, 'test_results.json')
         with open(json_file, 'w') as f:
             json.dump(test_results, f, indent=4)
 

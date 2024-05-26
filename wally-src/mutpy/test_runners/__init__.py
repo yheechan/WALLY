@@ -3,7 +3,7 @@ from .unittest_runner import UnittestTestRunner
 
 def pytest_installed():
     import importlib
-    pytest_loader = importlib.find_loader('pytest')
+    pytest_loader = importlib.util.find_spec('pytest')
     return pytest_loader is not None
 
 
