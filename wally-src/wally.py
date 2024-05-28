@@ -55,6 +55,8 @@ def main():
 
 def make_parser():
     parser = argparse.ArgumentParser(description='Pre-analysis for MBFL')
+    parser.add_argument('--project-dir', '-P', type=str, nargs='+',
+                        help='project directory')
     parser.add_argument('--target', '-t', type=str, nargs='+', help='target module or package to mutate')
     # parser.add_argument('--source-dir', '-s', type=str, required=True,
     #                     help='Root directory of sources to be tested')

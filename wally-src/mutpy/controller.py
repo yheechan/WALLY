@@ -50,10 +50,11 @@ class MutationScore:
 
 class MutationController(views.ViewNotifier):
 
-    def __init__(self, runner_cls, target_loader, test_loader, views, mutant_generator, pytest_function_timeout, pytest_session_timeout,
+    def __init__(self, runner_cls, project_dir, target_loader, test_loader, views, mutant_generator, pytest_function_timeout, pytest_session_timeout,
                  timeout_factor=5, disable_stdout=False, mutate_covered=False, mutation_number=None, test_results=None,
                  ):
         super().__init__(views)
+        self.project_dir = project_dir
         self.target_loader = target_loader
         self.test_loader = test_loader
         self.mutant_generator = mutant_generator
@@ -238,12 +239,11 @@ class MutationController(views.ViewNotifier):
         f2f = 0
         for passing in result.passings:
             info = passing.name.split('::')
-            p_filename = os.path.abspath(info[0])
+            passing_file_list = (info[0].split('/'))[1:]
+            p_filename = os.path.join(self.project_dir, *passing_file_list)
             p_funcname = info[1]
-            
-            #print("length of og_passing_tcs: ", len(self.og_passing_tcs))
+
             for og_passing in self.og_passing_tcs:
-                #print("p_filename: ", p_filename, "\nog_passing[0]: ", og_passing[0])
                 if p_filename == og_passing[0] and p_funcname == og_passing[1]:
                     p2p += 1
                     break

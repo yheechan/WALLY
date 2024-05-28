@@ -13,8 +13,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "wally.helloWorld",
-      "title": "Hello World"
+      "command": "wally.run",
+      "title": "WALLY: Run"
     }]
   },
   "scripts": {
