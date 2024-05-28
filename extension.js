@@ -17,17 +17,18 @@ function activate(context) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('wally.helloWorld', async function () {
+	let disposable = vscode.commands.registerCommand('wally.run', async function () {
 		// The code you place here will be executed every time your command is executed
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from wally!');
-		
 		// 1. make this extension open a file in project root directory named wally.json
 		const fs = require('fs');
 		const path = require('path');
-		const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+		let rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		const filePath = path.join(rootPath, 'wally.json');
+		
+		if (rootPath[1] === ':') {
+			rootPath = rootPath[0].toUpperCase() + rootPath.slice(1);
+		}
 		
 		// 2. read this json confiugration file and save it to a variable as json type
 		let data
@@ -42,16 +43,21 @@ function activate(context) {
 		const jsonData = JSON.parse(data);
 		console.log(jsonData);
 
-		let target = path.join(rootPath, jsonData.target);
-		let unittest = path.join(rootPath, jsonData.unit_test);
+		let target = jsonData.target;
+		let unittest = jsonData.unit_test;
+		let target_path = path.join(rootPath, jsonData.target);
+		let unittest_path = path.join(rootPath, jsonData.unit_test);
 		let tool = jsonData.tool;
+
+		// Display a message box to the user
+		vscode.window.showInformationMessage('Running wally on project <' + target + '> for <' + unittest + '> with testing tool <' + tool + '>.');
 
 		// 4. execute the command
 		// python3 ./wally-src/wally.py --target ./examples/maxify/maxify --unit-test ./examples/maxify/tests --runner pytest -m
 		const extensionPath = context.extensionPath;
 		const script = path.join(extensionPath, 'wally-src', 'wally.py');
 		const exec = require('child_process').exec;
-		const command = ['python', `${script}`, `--target ${target}`, `--unit-test ${unittest}`, `--runner ${tool}`, '--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
+		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, '--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
 		exec(command, (err, stdout, stderr) => {
 			if (err) {
 				console.error(err);

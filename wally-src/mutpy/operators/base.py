@@ -37,7 +37,7 @@ class MutationOperator:
         self.current_mutating_filename = module.__file__ if module else None
         self.failing_file = ''
         for file_name in failing_lines:
-            if file_name in self.current_mutating_filename:
+            if file_name in self.current_mutating_filename or file_name == self.current_mutating_filename:
                 self.failing_file = file_name
         self.current_failing_file_lines = failing_lines[self.failing_file] if self.failing_file else []
 
@@ -141,7 +141,7 @@ class MutationOperator:
         return self.getattrs_like(method_prefix)
 
     def getattrs_like(ob, attr_like):
-        pattern = re.compile(attr_like + "($|(_\w+)+$)")
+        pattern = re.compile(attr_like + r"($|(_\w+)+$)")
         return [getattr(ob, attr) for attr in dir(ob) if pattern.match(attr)]
 
     def set_lineno(self, node, lineno):

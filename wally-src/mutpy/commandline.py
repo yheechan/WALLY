@@ -17,6 +17,8 @@ def build_parser():
     parser = argparse.ArgumentParser(description='Mutation testing tool for Python 3.x source code. ',
                                      fromfile_prefix_chars='@')
     parser.add_argument('--version', '-v', action='version', version='%(prog)s {}'.format(version))
+    parser.add_argument('--project-dir', '-P', type=str, nargs='+',
+                        help='project directory')
     parser.add_argument('--target', '-t', type=str, nargs='+', help='target module or package to mutate')
     parser.add_argument('--unit-test', '-u', type=str, nargs='+',
                         help='test class, test method, module or package with unit tests')
@@ -68,7 +70,7 @@ def run_mutpy(parser, test_results):
         list_operators()
     elif cfg.list_hom_strategies:
         list_hom_strategies()
-    elif cfg.target and cfg.unit_test:
+    elif cfg.target and cfg.unit_test and cfg.project_dir:
         mutation_controller = build_controller(cfg)
         mbfl_results = mutation_controller.run()
     else:
@@ -85,6 +87,7 @@ def build_controller(cfg):
     test_loader = utils.ModulesLoader(cfg.unit_test, cfg.path)
     return controller.MutationController(
         runner_cls=runner_cls,
+        project_dir=cfg.project_dir[0],
         target_loader=target_loader,
         test_loader=test_loader,
         views=built_views,
