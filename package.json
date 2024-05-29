@@ -9,7 +9,10 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:wally.run",
+    "onLanguage:javascript"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [{

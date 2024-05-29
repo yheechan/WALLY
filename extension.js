@@ -138,7 +138,15 @@ function activate(context) {
 								backgroundColor: color,
 							}),
 							[range]
-						)
+						);
+						context.subscriptions.push(vscode.languages.registerHoverProvider('*', {
+							provideHover(document, position, token) {
+								if (position.line === line_number) {
+									return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
+								}
+								return null;
+							}
+						}));
 					}
 				}
 			}
