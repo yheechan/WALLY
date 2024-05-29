@@ -66,7 +66,7 @@ class ModulesLoader:
             if self.is_file(full_path):
                 return self.load_file(full_path)
             elif self.is_directory(full_path):
-                return self.load_directory(full_path)
+                return self.load_directory(os.path.normpath(full_path))
         if self.is_package(name):
             return self.load_package(name)
         else:
