@@ -238,22 +238,27 @@ class MutationController(views.ViewNotifier):
         p2p = 0
         f2f = 0
         for passing in result.passings:
+            #print("passing case: ", passing.name)
             info = passing.name.split('::')
             passing_file_list = (info[0].split('/'))[1:]
             p_filename = os.path.join(self.project_dir, *passing_file_list)
+            #P_filename = os.path.abspath(info[0])
             p_funcname = info[1]
 
             for og_passing in self.og_passing_tcs:
-                if p_filename == og_passing[0] and p_funcname == og_passing[1]:
+                # if p_filename == og_passing[0] and p_funcname == og_passing[1]:
+                if (p_filename in og_passing[0] or p_filename == og_passing[0]) and p_funcname == og_passing[1]:
                     p2p += 1
                     break
             
             for og_failing in self.og_failing_tcs:
-                if p_filename == og_failing[0] and p_funcname == og_failing[1]:
+                # if p_filename == og_failing[0] and p_funcname == og_failing[1]:
+                if (p_filename in og_failing[0] or p_filename == og_failing[0]) and p_funcname == og_failing[1]:
                     f2p += 1
                     break
         
         for failing in result.failings:
+            #print("failing case: ", failing.name)
             info = failing.name.split('::')
             failing_file_list = (info[0].split('/'))[1:]
             f_filename = os.path.join(self.project_dir, *failing_file_list)
@@ -261,12 +266,14 @@ class MutationController(views.ViewNotifier):
             f_funcname = info[1]
 
             for og_passing in self.og_passing_tcs:
-                if f_filename == og_passing[0] and f_funcname == og_passing[1]:
+                # if f_filename == og_passing[0] and f_funcname == og_passing[1]:
+                if (f_filename in og_passing[0] or f_filename == og_passing[0]) and f_funcname == og_passing[1]:
                     p2f += 1
                     break
             
             for og_failing in self.og_failing_tcs:
-                if f_filename == og_failing[0] and f_funcname == og_failing[1]:
+                # if f_filename == og_failing[0] and f_funcname == og_failing[1]:
+                if (f_filename in og_failing[0] or f_filename == og_failing[0]) and f_funcname == og_failing[1]:
                     f2f += 1
                     break
         
