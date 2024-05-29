@@ -24,6 +24,8 @@ def build_parser():
                         help='test class, test method, module or package with unit tests')
     parser.add_argument('--runner', type=str, choices=['unittest', 'pytest'], default='unittest',
                         metavar='RUNNER', help='test runner')
+    parser.add_argument('--working-dir', '-W', type=str, nargs='+',
+                        help='working directory for wally')
     parser.add_argument('--report', '-r', type=str, help='generate YAML report', metavar='REPORT_FILE')
     parser.add_argument('--report-html', type=str, help='generate HTML report', metavar='DIR_NAME')
     parser.add_argument('--timeout-factor', '-f', type=float, default=DEF_TIMEOUT_FACTOR,

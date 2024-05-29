@@ -246,14 +246,12 @@ class MutationController(views.ViewNotifier):
             p_funcname = info[1]
 
             for og_passing in self.og_passing_tcs:
-                # if p_filename == og_passing[0] and p_funcname == og_passing[1]:
-                if (p_filename in og_passing[0] or p_filename == og_passing[0]) and p_funcname == og_passing[1]:
+                if p_filename == og_passing[0] and p_funcname == og_passing[1]:
                     p2p += 1
                     break
             
             for og_failing in self.og_failing_tcs:
-                # if p_filename == og_failing[0] and p_funcname == og_failing[1]:
-                if (p_filename in og_failing[0] or p_filename == og_failing[0]) and p_funcname == og_failing[1]:
+                if p_filename == og_failing[0] and p_funcname == og_failing[1]:
                     f2p += 1
                     break
         
@@ -266,14 +264,12 @@ class MutationController(views.ViewNotifier):
             f_funcname = info[1]
 
             for og_passing in self.og_passing_tcs:
-                # if f_filename == og_passing[0] and f_funcname == og_passing[1]:
-                if (f_filename in og_passing[0] or f_filename == og_passing[0]) and f_funcname == og_passing[1]:
+                if f_filename == og_passing[0] and f_funcname == og_passing[1]:
                     p2f += 1
                     break
             
             for og_failing in self.og_failing_tcs:
-                # if f_filename == og_failing[0] and f_funcname == og_failing[1]:
-                if (f_filename in og_failing[0] or f_filename == og_failing[0]) and f_funcname == og_failing[1]:
+                if f_filename == og_failing[0] and f_funcname == og_failing[1]:
                     f2f += 1
                     break
         
