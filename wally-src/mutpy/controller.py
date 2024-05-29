@@ -255,7 +255,9 @@ class MutationController(views.ViewNotifier):
         
         for failing in result.failings:
             info = failing.name.split('::')
-            f_filename = os.path.abspath(info[0])
+            failing_file_list = (info[0].split('/'))[1:]
+            f_filename = os.path.join(self.project_dir, *failing_file_list)
+            #f_filename = os.path.abspath(info[0])
             f_funcname = info[1]
 
             for og_passing in self.og_passing_tcs:
