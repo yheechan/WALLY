@@ -7,7 +7,7 @@ const vscode = require('vscode');
 
 function getColor(suspiciousness) {
 	// the suspiciousness is in the range of [-1, 1]
-	
+
 	if (suspiciousness >= 0) {
 		// red
 		const red = 255;
@@ -25,31 +25,26 @@ function getColor(suspiciousness) {
 	}
 }
 
+
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "wally" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('wally.run', async function () {
-		// The code you place here will be executed every time your command is executed
-
+	function wally_mbfl(callback) {
 		// 1. make this extension open a file in project root directory named wally.json
 		const fs = require('fs');
 		const path = require('path');
 		let rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		const filePath = path.join(rootPath, 'wally.json');
-		
+
 		if (rootPath[1] === ':') {
 			rootPath = rootPath[0].toUpperCase() + rootPath.slice(1);
 		}
-		
+
 		// 2. read this json confiugration file and save it to a variable as json type
 		let data
 		try {
@@ -58,10 +53,9 @@ function activate(context) {
 		catch (err) {
 			console.error(err);
 		}
-		
+
 		// 3. parse the json data to a variable
 		const jsonData = JSON.parse(data);
-		console.log(jsonData);
 
 		let target = jsonData.target;
 		let unittest = jsonData.unit_test;
@@ -78,18 +72,24 @@ function activate(context) {
 		console.log(extensionPath);
 		const script = path.join(extensionPath, 'wally-src', 'wally.py');
 		const exec = require('child_process').exec;
-		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, `--working-dir ${extensionPath}`,'--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
-		
-		
-		// exec(command, (err, stdout, stderr) => {
-		// 	if (err) {
-		// 		console.error(err);
-		// 		console.error(stderr);
-		// 		return;
-		// 	}
-		// 	console.log(stdout);
+		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, `--working-dir ${extensionPath}`, '--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
 
-		// });
+		exec(command, (err, stdout, stderr) => {
+			if (err) {
+				console.error(err);
+				console.error(stderr);
+				return;
+			}
+			console.log(stdout);
+			callback();
+		});
+	}
+
+
+	function highlightLine() {
+		const fs = require('fs');
+		const path = require('path');
+		const extensionPath = context.extensionPath;
 		// 5. read mbfl_results.json
 		const mbfl_results_path = path.join(extensionPath, 'mbfl_results.json');
 		let mbfl_results_data
@@ -100,7 +100,7 @@ function activate(context) {
 			console.error(err);
 		}
 		const mbfl_results_json = JSON.parse(mbfl_results_data);
-		
+
 		// 6. get the suspiciousness of each line of each file
 		// {file_path: "lines": {"6": {"suspiciousness": 0.5}}, ...}
 		let suspiciousness = {};
@@ -128,9 +128,9 @@ function activate(context) {
 						const suspiciousness_value = suspiciousness[file_path][line];
 						const line_number = parseInt(line) - 1;
 						const range = new vscode.Range(line_number, 0, line_number, 1);
-			
+
 						const color = getColor(suspiciousness_value);
-						
+
 						// show suspciiousness value when hover
 						editor.setDecorations(
 							vscode.window.createTextEditorDecorationType({
@@ -143,15 +143,22 @@ function activate(context) {
 				}
 			}
 		}
+	}
 
-
+	// The command has been defined in the package.json file
+	// Now provide the implementation of the command with  registerCommand
+	// The commandId parameter must match the command field in package.json
+	let disposable = vscode.commands.registerCommand('wally.run', async function () {
+		// The code you place here will be executed every time your command is executed
+		wally_mbfl(() => {
+			highlightLine();
+		});
 	});
-
 	context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
 	activate,
