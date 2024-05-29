@@ -19,10 +19,6 @@
       {
         "command": "wally.run",
         "title": "WALLY: Run"
-      },
-      {
-        "command": "wally.ActivateAutoHighlight",
-        "title": "WALLY: On/Off Auto Highlight"
       }
     ],
     "menus": {

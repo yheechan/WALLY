@@ -32,7 +32,7 @@ function getColor(suspiciousness) {
 function activate(context) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "wally" is now active!');
+	console.log('"wally" is now active!');
 
 	function wally_mbfl(callback) {
 		// 1. make this extension open a file in project root directory named wally.json
@@ -78,6 +78,9 @@ function activate(context) {
 			if (err) {
 				console.error(err);
 				console.error(stderr);
+				vscode.window.showErrorMessage('Wally failed to run. Please check the output for more information.')
+				vacode.window.showErrorMessage(err);
+				vscode.window.showErrorMessage(stderr);
 				return;
 			}
 			console.log(stdout);
@@ -87,6 +90,11 @@ function activate(context) {
 
 
 	function highlightLine() {
+		// dispose the all context.subscriptions
+		// context.hoverSuspiciousness.forEach((element) => {
+		// 	element.dispose();
+		// });
+
 		const fs = require('fs');
 		const path = require('path');
 		const extensionPath = context.extensionPath;
@@ -132,7 +140,7 @@ function activate(context) {
 
 						const color = getColor(suspiciousness_value);
 
-						// show suspciiousness value when hover
+						// highlight the line
 						editor.setDecorations(
 							vscode.window.createTextEditorDecorationType({
 								isWholeLine: true,
@@ -140,14 +148,16 @@ function activate(context) {
 							}),
 							[range]
 						);
-						context.subscriptions.push(vscode.languages.registerHoverProvider('*', {
+
+						// show suspciiousness value when hover
+						vscode.languages.registerHoverProvider('*', {
 							provideHover(document, position, token) {
 								if (position.line === line_number) {
 									return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
 								}
 								return null;
 							}
-						}));
+						});
 					}
 				}
 			}
@@ -158,17 +168,13 @@ function activate(context) {
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('wally.run', async function () {
-		// The code you place here will be executed every time your command is executed
+		context.hoverSuspiciousness = new Array();
 		wally_mbfl(() => {
 			highlightLine();
+			vscode.window.onDidChangeActiveTextEditor(highlightLine);
 		});
 	});
 	context.subscriptions.push(disposable);
-
-	let activateAutoHighlight = vscode.commands.registerCommand('wally.ActivateAutoHighlight', function () {
-		vscode.window.onDidChangeActiveTextEditor(highlightLine);
-	});
-	context.subscriptions.push(activateAutoHighlight);
 }
 
 // This method is called when your extension is deactivated
