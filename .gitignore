@@ -8,3 +8,7 @@ dist
 node_modules
 .vscode-test/
 *.vsix
+
+coverage.json
+mbfl_results.json;
+pre-analysis/test_results.json
