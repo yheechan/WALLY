@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import os
 import argparse
 import lib.analysis as analysis
 import lib.mbfl as mbfl
@@ -11,6 +12,9 @@ available_test_tools = ['pytest', 'unittest']
 def main():
     parser = make_parser()
     args = parser.parse_args()
+
+    if args.working_dir:
+        os.chdir(args.working_dir[0])
 
     # CONVERT USER INPUT DIRECTORY PATHS TO PATHLIB
     print(args.target)
@@ -66,6 +70,8 @@ def make_parser():
     #                     help='Root directory of test cases')
     parser.add_argument('--runner', type=str, choices=['unittest', 'pytest'], default='unittest',
                         metavar='RUNNER', help='test runner')
+    parser.add_argument('--working-dir', '-W', type=str, nargs='+',
+                        help='working directory for wally')
     # parser.add_argument('--testing-tool', '-T', type=str, choices=available_test_tools, default='pytest', 
     #                     help='Testing tool to be used. Default is pytest')
     parser.add_argument('--save-pre-analysis', '-S', default=False, action='store_true',
@@ -77,6 +83,7 @@ def make_parser():
                         help='set timeout for each testcase function')
     parser.add_argument('--pytest-session-timeout', type=int, default=60, 
                         help='set timeout for each test module')
+    
     return parser
 
 

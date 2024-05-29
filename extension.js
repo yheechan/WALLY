@@ -55,9 +55,10 @@ function activate(context) {
 		// 4. execute the command
 		// python3 ./wally-src/wally.py --target ./examples/maxify/maxify --unit-test ./examples/maxify/tests --runner pytest -m
 		const extensionPath = context.extensionPath;
+		console.log(extensionPath);
 		const script = path.join(extensionPath, 'wally-src', 'wally.py');
 		const exec = require('child_process').exec;
-		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, '--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
+		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, `--working-dir ${extensionPath}`,'--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
 		exec(command, (err, stdout, stderr) => {
 			if (err) {
 				console.error(err);
