@@ -33,6 +33,9 @@ function activate(context) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('"wally" is now active!');
+	// initialize storage for suspiciousness hovering
+	const hoverSuspiciousnessKey = 'wally.hoverSuspiciousness';
+	context.workspaceState.update(hoverSuspiciousnessKey, []);
 
 	function wally_mbfl(callback) {
 		// 1. make this extension open a file in project root directory named wally.json
@@ -90,10 +93,13 @@ function activate(context) {
 
 
 	function highlightLine() {
-		// dispose the all context.subscriptions
-		// context.hoverSuspiciousness.forEach((element) => {
-		// 	element.dispose();
-		// });
+		// dispose the all hoverSuspiciousness
+		const hovers = context.workspaceState.get(hoverSuspiciousnessKey);
+		for (let hover of hovers) {
+			hover.dispose();
+		}
+		context.workspaceState.update(hoverSuspiciousnessKey, []);
+
 
 		const fs = require('fs');
 		const path = require('path');
@@ -150,14 +156,16 @@ function activate(context) {
 						);
 
 						// show suspciiousness value when hover
-						vscode.languages.registerHoverProvider('*', {
-							provideHover(document, position, token) {
-								if (position.line === line_number) {
-									return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
+						context.workspaceState.get(hoverSuspiciousnessKey).push(
+							vscode.languages.registerHoverProvider('*', {
+								provideHover(document, position, token) {
+									if (position.line === line_number && document.fileName.includes(file_path)) {
+										return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
+									}
+									return null;
 								}
-								return null;
-							}
-						});
+							})
+						);
 					}
 				}
 			}
