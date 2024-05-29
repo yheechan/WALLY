@@ -10,5 +10,5 @@ node_modules
 *.vsix
 
 coverage.json
-mbfl_results.json;
+mbfl_results.json
 pre-analysis/test_results.json
