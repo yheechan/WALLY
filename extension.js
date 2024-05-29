@@ -98,6 +98,7 @@ function activate(context) {
 		}
 		catch (err) {
 			console.error(err);
+			vscode.window.showErrorMessage('Wally is not run yet. Please run/wait Wally first.');
 		}
 		const mbfl_results_json = JSON.parse(mbfl_results_data);
 
@@ -163,6 +164,11 @@ function activate(context) {
 		});
 	});
 	context.subscriptions.push(disposable);
+
+	let activateAutoHighlight = vscode.commands.registerCommand('wally.ActivateAutoHighlight', function () {
+		vscode.window.onDidChangeActiveTextEditor(highlightLine);
+	});
+	context.subscriptions.push(activateAutoHighlight);
 }
 
 // This method is called when your extension is deactivated

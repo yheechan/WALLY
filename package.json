@@ -15,21 +15,31 @@
   ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "wally.run",
-      "title": "WALLY: Run"
-    }],
+    "commands": [
+      {
+        "command": "wally.run",
+        "title": "WALLY: Run"
+      },
+      {
+        "command": "wally.ActivateAutoHighlight",
+        "title": "WALLY: On/Off Auto Highlight"
+      }
+    ],
     "menus": {
-      "editor/context": [{
-        "when": "editorFocus",
-        "command": "wally.run",
-        "group": "navigation"
-      }],
-      "editor/title": [{
-        "when": "editorFocus",
-        "command": "wally.run",
-        "group": "navigation"
-      }]
+      "editor/context": [
+        {
+          "when": "editorFocus",
+          "command": "wally.run",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "editorFocus",
+          "command": "wally.run",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
