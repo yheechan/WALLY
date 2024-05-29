@@ -15,7 +15,19 @@
     "commands": [{
       "command": "wally.run",
       "title": "WALLY: Run"
-    }]
+    }],
+    "menus": {
+      "editor/context": [{
+        "when": "editorFocus",
+        "command": "wally.run",
+        "group": "navigation"
+      }],
+      "editor/title": [{
+        "when": "editorFocus",
+        "command": "wally.run",
+        "group": "navigation"
+      }]
+    }
   },
   "scripts": {
     "lint": "eslint .",

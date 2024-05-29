@@ -1,8 +1,26 @@
 {
-    "C:\\Users\\heech\\Documents\\test_wally\\examples\\maxify\\maxify\\factorial.py": {
+    "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/maxify/maxify/factorial.py": {
         "lines": {
             "6": {
                 "mutants": [
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
+                    },
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
+                    },
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
+                    },
                     {
                         "p2f": 0,
                         "f2p": 0,
@@ -20,24 +38,6 @@
                         "f2p": 0,
                         "p2p": 4,
                         "f2f": 9
-                    },
-                    {
-                        "p2f": 0,
-                        "f2p": 0,
-                        "p2p": 4,
-                        "f2f": 9
-                    },
-                    {
-                        "p2f": 0,
-                        "f2p": 0,
-                        "p2p": 4,
-                        "f2f": 9
-                    },
-                    {
-                        "p2f": 0,
-                        "f2p": 0,
-                        "p2p": 4,
-                        "f2f": 9
                     }
                 ],
                 "total_features": {
@@ -46,28 +46,6 @@
                     "mutant_cnt": 6
                 },
                 "suspiciousness": 0.10714285714285714
-            },
-            "2": {
-                "mutants": [
-                    {
-                        "p2f": 0,
-                        "f2p": 0,
-                        "p2p": 4,
-                        "f2f": 9
-                    },
-                    {
-                        "p2f": 0,
-                        "f2p": 0,
-                        "p2p": 4,
-                        "f2f": 9
-                    }
-                ],
-                "total_features": {
-                    "total_p2f": 0,
-                    "total_f2p": 0,
-                    "mutant_cnt": 2
-                },
-                "suspiciousness": 0.0
             },
             "5": {
                 "mutants": [
@@ -114,14 +92,8 @@
                     "mutant_cnt": 6
                 },
                 "suspiciousness": 0.0
-            }
-        },
-        "total_f2p": 3,
-        "total_p2f": 0
-    },
-    "C:\\Users\\heech\\Documents\\test_wally\\examples\\maxify\\maxify\\maxify.py": {
-        "lines": {
-            "6": {
+            },
+            "2": {
                 "mutants": [
                     {
                         "p2f": 0,
@@ -131,9 +103,37 @@
                     },
                     {
                         "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
+                    }
+                ],
+                "total_features": {
+                    "total_p2f": 0,
+                    "total_f2p": 0,
+                    "mutant_cnt": 2
+                },
+                "suspiciousness": 0.0
+            }
+        },
+        "total_f2p": 3,
+        "total_p2f": 0
+    },
+    "/home/yang/master-course/24-1/cs453-automated-software-testing/team-project/WALLY/examples/maxify/maxify/maxify.py": {
+        "lines": {
+            "6": {
+                "mutants": [
+                    {
+                        "p2f": 0,
                         "f2p": 6,
                         "p2p": 4,
                         "f2f": 3
+                    },
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
                     },
                     {
                         "p2f": 0,
@@ -176,6 +176,22 @@
                     "mutant_cnt": 2
                 },
                 "suspiciousness": -0.2857142857142857
+            },
+            "5": {
+                "mutants": [
+                    {
+                        "p2f": 0,
+                        "f2p": 0,
+                        "p2p": 4,
+                        "f2f": 9
+                    }
+                ],
+                "total_features": {
+                    "total_p2f": 0,
+                    "total_f2p": 0,
+                    "mutant_cnt": 1
+                },
+                "suspiciousness": 0.0
             }
         },
         "total_f2p": 18,

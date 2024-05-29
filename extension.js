@@ -5,6 +5,26 @@ const vscode = require('vscode');
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
+function getColor(suspiciousness) {
+	// the suspiciousness is in the range of [-1, 1]
+	
+	if (suspiciousness >= 0) {
+		// red
+		const red = 255;
+		const green = 0;
+		const blue = 0;
+		const alpha = Math.abs(suspiciousness);
+		return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+	} else {
+		// green
+		const red = 0;
+		const green = 255;
+		const blue = 0;
+		const alpha = Math.abs(suspiciousness);
+		return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+	}
+}
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -59,16 +79,72 @@ function activate(context) {
 		const script = path.join(extensionPath, 'wally-src', 'wally.py');
 		const exec = require('child_process').exec;
 		const command = ['python', `${script}`, `--project-dir ${rootPath}`, `--target ${target_path}`, `--unit-test ${unittest_path}`, `--runner ${tool}`, `--working-dir ${extensionPath}`,'--save-mbfl-results', '--save-pre-analysis', '--show-mutants'].join(" ")
-		exec(command, (err, stdout, stderr) => {
-			if (err) {
-				console.error(err);
-				console.error(stderr);
-				return;
-			}
-			console.log(stdout);
-		});
-
 		
+		
+		// exec(command, (err, stdout, stderr) => {
+		// 	if (err) {
+		// 		console.error(err);
+		// 		console.error(stderr);
+		// 		return;
+		// 	}
+		// 	console.log(stdout);
+
+		// });
+		// 5. read mbfl_results.json
+		const mbfl_results_path = path.join(extensionPath, 'mbfl_results.json');
+		let mbfl_results_data
+		try {
+			mbfl_results_data = fs.readFileSync(mbfl_results_path, 'utf8');
+		}
+		catch (err) {
+			console.error(err);
+		}
+		const mbfl_results_json = JSON.parse(mbfl_results_data);
+		
+		// 6. get the suspiciousness of each line of each file
+		// {file_path: "lines": {"6": {"suspiciousness": 0.5}}, ...}
+		let suspiciousness = {};
+		for (let file_path in mbfl_results_json) {
+			suspiciousness[file_path] = {};
+			for (let line in mbfl_results_json[file_path]['lines']) {
+				let suspiciousness_value = mbfl_results_json[file_path]['lines'][line]['suspiciousness'];
+				suspiciousness[file_path][line] = suspiciousness_value;
+			}
+		}
+
+		const editor = vscode.window.activeTextEditor;
+		let decorationType = vscode.window.createTextEditorDecorationType({})
+		if (editor) {
+			const document = editor.document;
+			const lineCount = document.lineCount;
+
+			editor.setDecorations(decorationType, [])
+			decorationType.dispose();
+
+			let decorations = [];
+			for (let file_path in suspiciousness) {
+				if (document.fileName.includes(file_path)) {
+					for (let line in suspiciousness[file_path]) {
+						const suspiciousness_value = suspiciousness[file_path][line];
+						const line_number = parseInt(line) - 1;
+						const range = new vscode.Range(line_number, 0, line_number, 1);
+			
+						const color = getColor(suspiciousness_value);
+						
+						// show suspciiousness value when hover
+						editor.setDecorations(
+							vscode.window.createTextEditorDecorationType({
+								isWholeLine: true,
+								backgroundColor: color,
+							}),
+							[range]
+						)
+					}
+				}
+			}
+		}
+
+
 	});
 
 	context.subscriptions.push(disposable);
