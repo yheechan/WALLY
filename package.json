@@ -3,6 +3,7 @@
   "displayName": "wally",
   "description": "We cAn LocaLize Your faulty lines",
   "version": "0.0.1",
+  "icon": "./assets/icon/wally_lens.png",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -18,7 +19,7 @@
     "commands": [
       {
         "command": "wally.run",
-        "title": "WALLY: Run"
+        "title": "WALLY"
       }
     ],
     "menus": {
@@ -33,7 +34,11 @@
         {
           "when": "editorFocus",
           "command": "wally.run",
-          "group": "navigation"
+          "group": "navigation",
+          "icon": {
+            "dark": "./assets/icon/wally.png",
+            "light": "./assets/icon/wally.png"
+          }
         }
       ]
     }
