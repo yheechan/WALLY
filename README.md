@@ -1,6 +1,8 @@
 # wally README
 
-This is the README for your extension "wally". After writing up a brief description, we recommend including the following sections.
+### WALLY: We cAn LocaLize faultY line with Mutations
+
+<img src="./assets/icon/wally_lens.png" height="500px" width="500px">
 
 ## Features
 
@@ -13,8 +15,15 @@ For example if there is an image subfolder under your extension project workspac
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
 ## Requirements
+```
+pip install -r requirements.txt
+```
+- yaml
+- pytest
+- astmonkey
+- termcolor
+- coverage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
 ## Extension Settings
 
