@@ -3,7 +3,8 @@
   "displayName": "wally",
   "description": "We cAn LocaLize Your faulty lines",
   "version": "0.0.1",
-  "icon": "./assets/icon/wally_lens.png",
+  "icon": "assets/icon/wally_lens.png",
+  "publisher": "DaleKim",
   "engines": {
     "vscode": "^1.89.0"
   },
