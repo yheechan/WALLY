@@ -2,7 +2,7 @@
 
 ### WALLY: We cAn LocaLize faultY line with Mutations
 
-<img src="assets/icon/wally_lens.png" height="500px" width="500px">
+![wally_lens](https://github.com/yheechan/WALLY/assets/97732494/48c77a85-ecaf-4c4a-9a4b-8ba5ffaca3f8)
 
 ## Features
 
