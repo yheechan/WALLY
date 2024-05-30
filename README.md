@@ -2,7 +2,7 @@
 
 ### WALLY: We cAn LocaLize faultY line with Mutations
 
-<img src="./assets/icon/wally_lens.png" height="500px" width="500px">
+<img src="assets/icon/wally_lens.png" height="500px" width="500px">
 
 ## Features
 
