@@ -34,11 +34,7 @@
         {
           "when": "editorFocus",
           "command": "wally.run",
-          "group": "navigation",
-          "icon": {
-            "dark": "./assets/icon/wally.png",
-            "light": "./assets/icon/wally.png"
-          }
+          "group": "navigation"
         }
       ]
     }
@@ -56,5 +52,9 @@
     "typescript": "^5.4.5",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yheechan/WALLY.git"
   }
 }
