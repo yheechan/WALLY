@@ -81,8 +81,8 @@ function activate(context) {
 			if (err) {
 				console.error(err);
 				console.error(stderr);
-				vscode.window.showErrorMessage('Wally failed to run. Please check the output for more information.')
-				vacode.window.showErrorMessage(err);
+				vscode.window.showErrorMessage('Wally failed to run. Please check the output for more information.');
+				vscode.window.showErrorMessage(err);
 				vscode.window.showErrorMessage(stderr);
 				return;
 			}
@@ -138,7 +138,11 @@ function activate(context) {
 
 			let decorations = [];
 			for (let file_path in suspiciousness) {
-				if (document.fileName.includes(file_path)) {
+				let lower_file_path = ""
+				if (file_path[1] === ':') {
+					lower_file_path = file_path[0].toLowerCase() + file_path.slice(1);
+				}
+				if (document.fileName.includes(lower_file_path)) {
 					for (let line in suspiciousness[file_path]) {
 						const suspiciousness_value = suspiciousness[file_path][line];
 						const line_number = parseInt(line) - 1;
