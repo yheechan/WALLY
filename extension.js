@@ -141,6 +141,8 @@ function activate(context) {
 				let lower_file_path = ""
 				if (file_path[1] === ':') {
 					lower_file_path = file_path[0].toLowerCase() + file_path.slice(1);
+				} else {
+					lower_file_path = file_path;
 				}
 				if (document.fileName.includes(lower_file_path)) {
 					for (let line in suspiciousness[file_path]) {
@@ -163,7 +165,12 @@ function activate(context) {
 						context.workspaceState.get(hoverSuspiciousnessKey).push(
 							vscode.languages.registerHoverProvider('*', {
 								provideHover(document, position, token) {
-									if (position.line === line_number && document.fileName.includes(file_path)) {
+									if (file_path[1] === ':') {
+										lower_file_path = file_path[0].toLowerCase() + file_path.slice(1);
+									} else {
+										lower_file_path = file_path;
+									}
+									if (position.line === line_number && document.fileName.includes(lower_file_path)) {
 										return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
 									}
 									return null;
