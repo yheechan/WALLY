@@ -5,24 +5,25 @@ const vscode = require('vscode');
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
-function getColor(suspiciousness) {
-	// the suspiciousness is in the range of [-1, 1]
-
-	if (suspiciousness >= 0) {
-		// red
-		const red = 255;
-		const green = 0;
-		const blue = 0;
-		const alpha = Math.abs(suspiciousness);
-		return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-	} else {
-		// green
-		const red = 0;
-		const green = 255;
-		const blue = 0;
-		const alpha = Math.abs(suspiciousness);
-		return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-	}
+function getColor(rank, num_of_lines) {
+	// return color
+	// which is more red when the rank is closer to 1
+	// and more green when the rank is closer to num_of_lines
+	// the color is a hex string
+	// ex) rank 1: really red
+	//      rank 2: less red
+	//      rank 3: lesser red
+	//      rank 4: lesser green
+	//      rank 5: less green
+	// 	rank 6: really green
+	
+	// normalize the rank
+	const normalized_rank = rank / num_of_lines;
+	const red = 255 * (1-normalized_rank);
+	const green = 255 * normalized_rank;
+	const blue = 0;
+	const color = `rgba(${red}, ${green}, ${blue}, 0.65)`;
+	return color;
 }
 
 
@@ -123,7 +124,21 @@ function activate(context) {
 			suspiciousness[file_path] = {};
 			for (let line in mbfl_results_json[file_path]['lines']) {
 				let suspiciousness_value = mbfl_results_json[file_path]['lines'][line]['suspiciousness'];
-				suspiciousness[file_path][line] = suspiciousness_value;
+				if (!suspiciousness[file_path][line]) {
+					suspiciousness[file_path][line] = {};
+				}
+				suspiciousness[file_path][line]['susp'] = suspiciousness_value;
+			}
+		}
+
+		// add a rank on each line based on the suspiciousness on lines of the file
+		for (let file_path in suspiciousness) {
+			let lines = suspiciousness[file_path];
+			let sorted_lines = Object.keys(lines).sort((a, b) => lines[b]['susp'] - lines[a]['susp']);
+			for (let i = 0; i < sorted_lines.length; i++) {
+				let line = sorted_lines[i];
+				let rank = i + 1;
+				suspiciousness[file_path][line]['rank'] = rank;
 			}
 		}
 
@@ -144,13 +159,15 @@ function activate(context) {
 				} else {
 					lower_file_path = file_path;
 				}
+
 				if (document.fileName.includes(lower_file_path)) {
 					for (let line in suspiciousness[file_path]) {
-						const suspiciousness_value = suspiciousness[file_path][line];
+						const suspiciousness_value = suspiciousness[file_path][line]['susp'];
+						const rank = suspiciousness[file_path][line]['rank'];
 						const line_number = parseInt(line) - 1;
 						const range = new vscode.Range(line_number, 0, line_number, 1);
 
-						const color = getColor(suspiciousness_value);
+						const color = getColor(rank, Object.keys(suspiciousness[file_path]).length);
 
 						// highlight the line
 						editor.setDecorations(
@@ -171,7 +188,7 @@ function activate(context) {
 										lower_file_path = file_path;
 									}
 									if (position.line === line_number && document.fileName.includes(lower_file_path)) {
-										return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}`);
+										return new vscode.Hover(`Suspiciousness score: ${suspiciousness_value}, Rank: ${rank}`);
 									}
 									return null;
 								}

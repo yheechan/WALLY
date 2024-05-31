@@ -1,0 +1,5 @@
+{
+    "target" : "wally-src/examples/maxify/maxify",
+    "unit_test" : "wally-src/examples/maxify/tests",
+    "tool" : "pytest"
+}
