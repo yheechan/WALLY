@@ -6,18 +6,6 @@ const vscode = require('vscode');
 // Your extension is activated the very first time the command is executed
 
 function getColor(rank, num_of_lines) {
-	// return color
-	// which is more red when the rank is closer to 1
-	// and more green when the rank is closer to num_of_lines
-	// the color is a hex string
-	// ex) rank 1: really red
-	//      rank 2: less red
-	//      rank 3: lesser red
-	//      rank 4: lesser green
-	//      rank 5: less green
-	// 	rank 6: really green
-	
-	// normalize the rank
 	const normalized_rank = rank / num_of_lines;
 	const red = 255 * (1-normalized_rank);
 	const green = 255 * normalized_rank;
