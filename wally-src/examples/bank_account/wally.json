@@ -1,0 +1,5 @@
+{
+    "target": "bank_account",
+    "unit_test": "tests",
+    "tool": "pytest"
+}
