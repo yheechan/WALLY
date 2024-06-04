@@ -1,18 +1,10 @@
-# wally README
-
-### WALLY: We cAn LocaLize faultY line with Mutations
+# WALLY: We cAn LocaLize faultY line with Mutations
 
 ![wally_lens](https://github.com/yheechan/WALLY/assets/97732494/48c77a85-ecaf-4c4a-9a4b-8ba5ffaca3f8)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+WALLY is a fault localization tool using MBFL. It computes the suspicioius socore uisng MUSE formula and visualize it by coloring line accordint to the rank of scores.
 
 ## Requirements
 ```
@@ -20,55 +12,25 @@ pip install -r requirements.txt
 ```
 - yaml
 - pytest
+- pytest-timeout
 - astmonkey
 - termcolor
 - coverage
 
 
-## Extension Settings
+## Configuration
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+To execute WALLY, configuration file named `wally.json` should be added in your project root directory:
+```json
+{
+    "target" : "project source directory",
+    "unit_test" : "project unit-test case directory",
+    "tool" : "testing tool"
+}
+```
+Currently, WALLY support `pytest` as a testing tool.
 
-For example:
+## How to run WALLY
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Once the configuration file is set up, run wally by clicking the wally button in the top right corner of the screen.
+When wally completes the calculation, you'll see the results, with each line colored according to computed suspicion scores.
