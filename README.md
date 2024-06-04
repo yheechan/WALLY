@@ -6,6 +6,8 @@
 
 WALLY is a fault localization tool using MBFL. It computes the suspicioius socore uisng MUSE formula and visualize it by coloring line accordint to the rank of scores.
 
+![results](https://github.com/yheechan/WALLY/assets/160840757/a08209e5-6d74-43f7-b719-09fd43d105a7)
+
 ## Requirements
 ```
 pip install -r requirements.txt
