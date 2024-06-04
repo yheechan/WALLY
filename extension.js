@@ -192,11 +192,23 @@ function activate(context) {
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('wally.run', async function () {
+		// Start a timer
+		const start = new Date().getTime();
+
 		context.hoverSuspiciousness = new Array();
 		wally_mbfl(() => {
+			// End the timer
+			const end = new Date().getTime();
+
+			// Display the time taken
+			const time = end - start;
+			vscode.window.showInformationMessage(`Wally took ${time}ms to run`);
+			
 			highlightLine();
 			vscode.window.onDidChangeActiveTextEditor(highlightLine);
 		});
+
+
 	});
 	context.subscriptions.push(disposable);
 }
